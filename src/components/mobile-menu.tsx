@@ -66,8 +66,13 @@ export default function MobileMenu() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <Icons.search />
-        <Icons.user />
+        <span className="cursor-pointer hidden sm:flex">
+          <Icons.search />
+        </span>
+        <span className="cursor-pointer hidden sm:flex">
+          <Icons.user />
+        </span>
+
         <div className="flex items-center gap-1">
           <Icons.CartIcon />
           <Badge className="rounded-full size-6 items-center justify-center">

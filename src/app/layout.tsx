@@ -18,14 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <NextUI>
-        <body className={inter.className}>
-          <main className="min-h-screen flex flex-col relative">
-            <Header />
-            {children}
-          </main>
-        </body>
-      </NextUI>
+      {/* <NextUI> */}
+      <body className={inter.className}>
+        <main className="min-h-screen flex flex-col relative">
+          <Header />
+          {children}
+        </main>
+      </body>
+      {/* </NextUI> */}
     </html>
   );
 }
