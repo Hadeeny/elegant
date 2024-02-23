@@ -2,7 +2,8 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
+import { Input } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -14,7 +15,7 @@ import {
 } from "@/lib/validators/account-credentials-validators";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
-import { register as signUp } from "../../../../action/register";
+import { register as signUp } from "@/action/register";
 
 const SignUpPage = () => {
   const [isPending, startTransition] = useTransition();
@@ -60,22 +61,22 @@ const SignUpPage = () => {
             </Link>
           </p>
           <Input
+            variant="underlined"
             disabled={isPending}
             {...register("name")}
-            className="border-transparent ring-0 rounded-none focus-visible:ring-0 focus:ring-0 border-b-black border-2"
             placeholder="Your name"
           />
           <Input
+            variant="underlined"
             disabled={isPending}
             {...register("username")}
-            className="border-transparent ring-0 rounded-none focus-visible:ring-0 focus:ring-0 border-b-black border-2"
             placeholder="Username"
           />
           <div>
             <Input
+              variant="underlined"
               disabled={isPending}
               {...register("email")}
-              className="border-transparent ring-0 rounded-none focus-visible:ring-0 focus:ring-0 border-b-black border-2"
               placeholder="Email"
             />
             {errors.email && (
@@ -84,10 +85,10 @@ const SignUpPage = () => {
           </div>
           <div>
             <Input
+              variant="underlined"
               disabled={isPending}
               {...register("password")}
               type="password"
-              className="border-transparent ring-0 rounded-none focus-visible:ring-0 focus:ring-0 border-b-black border-2"
               placeholder="Password"
             />
             {errors.password && (

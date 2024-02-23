@@ -2,7 +2,8 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import { Input } from "@nextui-org/react";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -16,7 +17,7 @@ import {
 } from "@/lib/validators/account-credentials-validators";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
-import { login } from "../../../../action/login";
+import { login } from "@/action/login";
 
 const SignInPage = () => {
   const [isPending, startTransition] = useTransition();
@@ -33,7 +34,6 @@ const SignInPage = () => {
   const onSubmit = (formData: TLoginSchema) => {
     setError("");
     setSuccess("");
-    console.log(formData);
     startTransition(() => {
       login(formData).then((data) => {
         setError(data?.error);
@@ -66,7 +66,7 @@ const SignInPage = () => {
             <Input
               disabled={isPending}
               {...register("email")}
-              className="border-transparent ring-0 rounded-none focus-visible:ring-0 focus:ring-0 border-b-black border-2"
+              variant="underlined"
               placeholder="Email"
             />
             {errors.email && (
@@ -78,7 +78,7 @@ const SignInPage = () => {
               disabled={isPending}
               {...register("password")}
               type="password"
-              className="border-transparent ring-0 rounded-none focus-visible:ring-0 focus:ring-0 border-b-black border-2"
+              variant="underlined"
               placeholder="Password"
             />
             {errors.password && (
