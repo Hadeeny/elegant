@@ -5,16 +5,19 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRightFromLine } from "lucide-react";
 import { Icons } from "@/components/Icons";
+import { cn } from "@/lib/utils";
+import { ImagesSlide } from "@/components/image-slider";
 
 export default function Home() {
+  const images = [
+    { id: 0, link: "/images/bigchair.png" },
+    { id: 1, link: "/images/bigchair.png" },
+    { id: 2, link: "/images/bigchair.png" },
+  ];
   return (
     <MaxWidthWrapper>
-      <Image
-        src="/images/bigchair.png"
-        width={2000}
-        height={1000}
-        alt="chair"
-      />
+      <ImagesSlide />
+
       <div className="my-4 sm:my-8 flex flex-col sm:flex-row items-center gap-y-4">
         <div className="w-full sm:w-1/2">
           <h2 className="font-semibold text-3xl sm:text-6xl">
