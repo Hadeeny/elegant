@@ -14,6 +14,7 @@ import {
 import { Icons } from "./Icons";
 // import {AcmeLogo} from "./AcmeLogo.jsx";
 import { Badge } from "@/components/ui/badge";
+import Cart from "./cart";
 
 export default function MobileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -72,13 +73,7 @@ export default function MobileMenu() {
         <span className="cursor-pointer hidden sm:flex">
           <Icons.user />
         </span>
-
-        <div className="flex items-center gap-1">
-          <Icons.CartIcon />
-          <Badge className="rounded-full size-6 items-center justify-center">
-            5
-          </Badge>
-        </div>
+        <Cart />
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => (

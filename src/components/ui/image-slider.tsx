@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Icons } from "../Icons";
 
 export const ImagesSlider = ({
@@ -25,17 +25,17 @@ export const ImagesSlider = ({
   const [loading, setLoading] = useState(false);
   const [loadedImages, setLoadedImages] = useState<string[]>([]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex + 1 === images.length ? 0 : prevIndex + 1
     );
-  };
+  }, []);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
     );
-  };
+  }, []);
 
   useEffect(() => {
     loadImages();
@@ -82,14 +82,13 @@ export const ImagesSlider = ({
       window.removeEventListener("keydown", handleKeyDown);
       clearInterval(interval);
     };
-  }, []);
+  }, [handleNext, handlePrevious, autoplay]);
 
   useEffect(() => {}, []);
 
   const slideVariants = {
     initial: {
       opacity: 0,
-      rotateX: 45,
     },
     visible: {
       rotateX: 0,
