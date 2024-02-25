@@ -15,21 +15,17 @@ import { Icons } from "./Icons";
 // import {AcmeLogo} from "./AcmeLogo.jsx";
 import { Badge } from "@/components/ui/badge";
 import Cart from "./cart";
+import { Button as Btn, buttonVariants } from "@/components/ui/button";
+import { Facebook, Instagram, Youtube } from "lucide-react";
 
 export default function MobileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    { name: "Home", link: "/" },
+    { name: "Shop", link: "/" },
+    { name: "Product", link: "/" },
+    { name: "Contact us", link: "/" },
   ];
 
   return (
@@ -75,25 +71,47 @@ export default function MobileMenu() {
         </span>
         <Cart />
       </NavbarContent>
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
+      <NavbarMenu className="bg-white flex flex-col">
+        <div className="flex-1">
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem
+              className="border-b flex items-center py-2 border-black"
+              key={`${item}-${index}`}
             >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+              <Link className="w-full" href={item.link} size="lg">
+                {item.name}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </div>
+        <div>
+          {[1, 2].map((_, i) => (
+            <NavbarMenuItem
+              className="border-b flex items-center py-2 border-black"
+              key={i}
+            >
+              <Link className="w-full" href={"/"} size="lg">
+                cart
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </div>
+        <div className="gap-x-2 space-y-2 my-4">
+          <Link
+            href="/sign-in"
+            className={buttonVariants({
+              className: "w-full",
+              size: "lg",
+            })}
+          >
+            Sign in
+          </Link>
+          <div className="flex gap-x-4">
+            <Instagram size={30} />
+            <Facebook size={30} />
+            <Youtube size={30} />
+          </div>
+        </div>
       </NavbarMenu>
     </Navbar>
   );
