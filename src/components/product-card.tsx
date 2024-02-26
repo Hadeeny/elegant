@@ -7,8 +7,8 @@ import { Product } from "@/lib/types";
 export const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div>
-      <div className="sm:w-[250px] w-[200px] h-max relative">
-        <div className="mx-auto absolute top-5 w-11/12 sm:w-10/12 inset-0 flex items-start justify-between">
+      <div className="sm:w-[250px] w-[220px] relative">
+        <div className="mx-auto absolute sm:top-5 top-2 w-11/12 sm:w-10/12 inset-0 flex items-start justify-between">
           <div className="space-y-2">
             <p className="bg-white py-1 px-4 rounded-md text-sm uppercase">
               New
@@ -21,13 +21,10 @@ export const ProductCard = ({ product }: { product: Product }) => {
             <Icons.Favorite />
           </button>
         </div>
-        <Button
-          size={"lg"}
-          className="w-11/12 sm:w-10/12 inset-x-0 mx-auto h-12 absolute bottom-4"
-        >
+        <Button className="w-11/12 sm:w-10/12 inset-x-0 h-9 sm:h-10 mx-auto absolute bottom-2 sm:bottom-4">
           Add to cart
         </Button>
-        <Image src={product.image} alt="chair" width={300} height={350} />
+        <Image src={product.image} alt="chair" width={300} height={370} />
       </div>
       <div className="mt-2">
         <p className="font-semibold">{product.name}</p>

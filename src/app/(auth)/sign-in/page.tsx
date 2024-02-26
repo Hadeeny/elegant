@@ -18,9 +18,11 @@ import {
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { login } from "@/action/login";
+import { Eye, EyeOff } from "lucide-react";
 
 const SignInPage = () => {
   const [isPending, startTransition] = useTransition();
+  const [togglePassword, setTogglePassword] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const {
@@ -55,10 +57,10 @@ const SignInPage = () => {
       <div className="w-full md:w-1/2 flex px-8 md:px-20 items-center justify-center h-[60vh] md:h-screen">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
           <h2 className="text-2xl font-bold">Sign In</h2>
-          <p>
-            Already have an account?{" "}
-            <Link className="font-bold" href={"/sign-in"}>
-              Sign in
+          <p className="text-sm">
+            Don&apos;t have an account?{" "}
+            <Link className="font-normal text-green-300" href={"/sign-up"}>
+              Sign up
             </Link>
           </p>
 
@@ -67,7 +69,7 @@ const SignInPage = () => {
               disabled={isPending}
               {...register("email")}
               variant="underlined"
-              placeholder="Email"
+              label="Email"
             />
             {errors.email && (
               <p className="text-sm text-destructive">{errors.email.message}</p>
@@ -77,9 +79,17 @@ const SignInPage = () => {
             <Input
               disabled={isPending}
               {...register("password")}
-              type="password"
+              type={togglePassword ? "text" : "password"}
               variant="underlined"
-              placeholder="Password"
+              label="Password"
+              endContent={
+                <button
+                  type="button"
+                  onClick={() => setTogglePassword(!togglePassword)}
+                >
+                  {togglePassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                </button>
+              }
             />
             {errors.password && (
               <p className="text-sm text-destructive">

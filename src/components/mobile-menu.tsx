@@ -42,7 +42,7 @@ export default function MobileMenu() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/">
             Home
           </Link>
         </NavbarItem>
@@ -71,7 +71,7 @@ export default function MobileMenu() {
         </span>
         <Cart />
       </NavbarContent>
-      <NavbarMenu className="bg-white flex flex-col h-full">
+      <NavbarMenu className="bg-white flex flex-col h-screen">
         <div className="flex-1">
           {menuItems.map((item, index) => (
             <NavbarMenuItem

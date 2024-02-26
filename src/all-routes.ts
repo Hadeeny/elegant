@@ -27,4 +27,4 @@ export const apiAuthPrefix = "/api/auth";
  * @type {string}
  */
 
-export const DEFAUTL_LOGIN_REDIRECT = "/checkout";
+export const DEFAUTL_LOGIN_REDIRECT = "/account";
