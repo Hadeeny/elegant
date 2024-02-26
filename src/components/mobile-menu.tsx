@@ -71,7 +71,7 @@ export default function MobileMenu() {
         </span>
         <Cart />
       </NavbarContent>
-      <NavbarMenu className="bg-white flex flex-col">
+      <NavbarMenu className="bg-white flex flex-col h-full">
         <div className="flex-1">
           {menuItems.map((item, index) => (
             <NavbarMenuItem
