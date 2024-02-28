@@ -2,7 +2,7 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@nextui-org/react";
+import { Input, Spinner } from "@nextui-org/react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -46,7 +46,9 @@ const SignInPage = () => {
   return (
     <div className="flex flex-col md:flex-row items-center">
       <div className="w-full flex items-center overflow-hidden justify-center md:w-1/2 h-[40vh] md:h-screen bg-[#f3f5f7]">
-        <h2 className="absolute top-5 font-bold text-2xl">Elegant</h2>
+        <Link href={"/"} className="absolute top-5 font-bold text-2xl">
+          Elegant
+        </Link>
         <Image
           src="/images/authchair.png"
           width={450}
@@ -100,7 +102,12 @@ const SignInPage = () => {
 
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button disabled={isPending} className="w-full">
+          <Button
+            size={"lg"}
+            disabled={isPending}
+            className="w-full font-semibold space-x-3"
+          >
+            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
             Sign in
           </Button>
         </form>

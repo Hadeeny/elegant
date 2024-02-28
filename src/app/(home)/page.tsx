@@ -10,7 +10,7 @@ import { ImagesSlide } from "@/components/image-slider";
 import { ProductSlider } from "@/components/products-slider";
 import { new_arrivals } from "@/data/products";
 
-export default function Home() {
+function Home() {
   const images = [
     { id: 0, link: "/images/bigchair.png" },
     { id: 1, link: "/images/bigchair.png" },
@@ -101,3 +101,4 @@ export default function Home() {
     </>
   );
 }
+export default Home;

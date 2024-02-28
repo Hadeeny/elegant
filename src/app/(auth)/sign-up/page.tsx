@@ -45,7 +45,9 @@ const SignUpPage = () => {
   return (
     <div className="flex flex-col md:flex-row items-center">
       <div className="w-full flex items-center overflow-hidden justify-center md:w-1/2 h-[40vh] md:h-screen bg-[#f3f5f7]">
-        <h2 className="absolute top-5 font-bold text-2xl">Elegant</h2>
+        <Link href={"/"} className="absolute top-5 font-bold text-2xl">
+          Elegant
+        </Link>
         <Image
           src="/images/authchair.png"
           width={450}

@@ -67,7 +67,9 @@ export default function MobileMenu() {
           <Icons.search />
         </span>
         <span className="cursor-pointer hidden sm:flex">
-          <Icons.user />
+          <Link href="/account">
+            <Icons.user />
+          </Link>
         </span>
         <Cart />
       </NavbarContent>
