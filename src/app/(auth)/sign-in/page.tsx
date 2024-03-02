@@ -3,6 +3,7 @@ import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input, Spinner } from "@nextui-org/react";
+import { signIn } from "next-auth/react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +19,8 @@ import {
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { login } from "@/action/login";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Github, GoalIcon } from "lucide-react";
+import { DEFAUTL_LOGIN_REDIRECT } from "@/all-routes";
 
 const SignInPage = () => {
   const [isPending, startTransition] = useTransition();
@@ -32,6 +34,12 @@ const SignInPage = () => {
   } = useForm<TLoginSchema>({
     resolver: zodResolver(LoginSchema),
   });
+
+  const onAuthClick = (provider: "github" | "google") => {
+    signIn(provider, {
+      callbackUrl: DEFAUTL_LOGIN_REDIRECT,
+    });
+  };
 
   const onSubmit = (formData: TLoginSchema) => {
     setError("");
@@ -109,6 +117,28 @@ const SignInPage = () => {
           >
             {isPending && <Spinner color="white" size="sm" className="mr-4" />}
             Sign in
+          </Button>
+          <Button
+            onClick={() => {
+              onAuthClick("github");
+            }}
+            variant={"outline"}
+            disabled={isPending}
+            className="w-full space-x-3"
+          >
+            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+            <Github />
+          </Button>
+          <Button
+            onClick={() => {
+              onAuthClick("google");
+            }}
+            variant={"outline"}
+            disabled={isPending}
+            className="w-full space-x-3"
+          >
+            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+            <GoalIcon />
           </Button>
         </form>
       </div>

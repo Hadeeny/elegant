@@ -12,6 +12,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import React, { useState } from "react";
+import Image from "next/image";
 
 const page = async () => {
   const session = await auth();
@@ -23,8 +24,14 @@ const page = async () => {
       <h2 className="font-semibold text-2xl text-center my-4">Account page</h2>
       <div className="flex flex-col sm:flex-row items-start gap-y-6 gap-x-12">
         <div className="bg-slate-300 space-y-8 p-4 w-full sm:w-auto rounded-md">
-          <Avatar src="/images/avatar.png" size="lg" className="mx-auto" />
+          <Avatar src={session?.user.image} size="lg" className="mx-auto" />
           <div className="text-center">{name}</div>
+          <Image
+            src={session?.user.image}
+            alt="user"
+            width={100}
+            height={100}
+          />
           <div className="sm:hidden">
             <AccountDropdown items={accountOptions} />
           </div>
