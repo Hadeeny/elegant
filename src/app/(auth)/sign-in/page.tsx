@@ -64,7 +64,7 @@ const SignInPage = () => {
           alt="chair"
         />
       </div>
-      <div className="w-full md:w-1/2 flex px-8 md:px-20 items-center justify-center h-[60vh] md:h-screen">
+      <div className="w-full md:w-1/2 flex flex-col px-8 md:px-20 items-center justify-center h-[60vh] md:h-screen">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
           <h2 className="text-2xl font-bold">Sign In</h2>
           <p className="text-sm">
@@ -118,29 +118,29 @@ const SignInPage = () => {
             {isPending && <Spinner color="white" size="sm" className="mr-4" />}
             Sign in
           </Button>
-          <Button
-            onClick={() => {
-              onAuthClick("github");
-            }}
-            variant={"outline"}
-            disabled={isPending}
-            className="w-full space-x-3"
-          >
-            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
-            <Github />
-          </Button>
-          <Button
-            onClick={() => {
-              onAuthClick("google");
-            }}
-            variant={"outline"}
-            disabled={isPending}
-            className="w-full space-x-3"
-          >
-            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
-            <GoalIcon />
-          </Button>
         </form>
+        <Button
+          onClick={() => {
+            onAuthClick("github");
+          }}
+          variant={"outline"}
+          disabled={isPending}
+          className="w-full space-x-3"
+        >
+          {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+          <Github />
+        </Button>
+        <Button
+          onClick={() => {
+            onAuthClick("google");
+          }}
+          variant={"outline"}
+          disabled={isPending}
+          className="w-full space-x-3"
+        >
+          {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+          <GoalIcon />
+        </Button>
       </div>
     </div>
   );

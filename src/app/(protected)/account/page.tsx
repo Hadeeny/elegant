@@ -1,4 +1,6 @@
-import { auth, signOut } from "@/auth";
+"use client";
+import { auth } from "@/auth";
+import { signOut } from "next-auth/react";
 
 import AccountDropdown from "@/components/account-dropdown";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
@@ -12,26 +14,23 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import React, { useState } from "react";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 
-const page = async () => {
-  const session = await auth();
+const AccountPage = () => {
+  const session = useSession();
 
+  const logout = () => {
+    signOut();
+  };
   const accountOptions = ["Account", "Address", "Orders", "Wishlist", "Logout"];
-  const { name } = session?.user;
+  const { name, image } = session?.data?.user;
   return (
     <MaxWidthWrapper>
       <h2 className="font-semibold text-2xl text-center my-4">Account page</h2>
       <div className="flex flex-col sm:flex-row items-start gap-y-6 gap-x-12">
         <div className="bg-slate-300 space-y-8 p-4 w-full sm:w-auto rounded-md">
-          <Avatar src={session?.user.image} size="lg" className="mx-auto" />
+          <Avatar src={image} size="lg" className="mx-auto" />
           <div className="text-center">{name}</div>
-          <Image
-            src={session?.user.image}
-            alt="user"
-            width={100}
-            height={100}
-          />
           <div className="sm:hidden">
             <AccountDropdown items={accountOptions} />
           </div>
@@ -45,20 +44,14 @@ const page = async () => {
                   {option}
                 </li>
               ) : (
-                <form
+                <button
                   key={i}
-                  action={async () => {
-                    "use server";
-                    await signOut();
-                  }}
+                  className="p-2 hover:bg-slate-400 rounded-sm w-full justify-start text-left"
+                  type="submit"
+                  onClick={logout}
                 >
-                  <button
-                    className="p-2 hover:bg-slate-400 rounded-sm w-full justify-start text-left"
-                    type="submit"
-                  >
-                    sign out
-                  </button>
-                </form>
+                  sign out
+                </button>
               )
             )}
           </ul>
@@ -160,4 +153,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default AccountPage;

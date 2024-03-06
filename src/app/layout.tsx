@@ -4,6 +4,8 @@ import "./globals.css";
 import NextUI from "@/components/nextui-wrapper";
 import Header from "@/components/header";
 import { siteConfig } from "@/config/site";
+import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,21 +56,24 @@ export const metadata = {
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
-    <html lang="en">
-      {/* <NextUI> */}
-      <body className={inter.className}>
-        <main className="min-h-screen flex flex-col relative">
-          {/* <Header /> */}
-          {children}
-        </main>
-      </body>
-      {/* </NextUI> */}
-    </html>
+    <SessionProvider session={session}>
+      <html lang="en">
+        {/* <NextUI> */}
+        <body className={inter.className}>
+          <main className="min-h-screen flex flex-col relative">
+            {/* <Header /> */}
+            {children}
+          </main>
+        </body>
+        {/* </NextUI> */}
+      </html>
+    </SessionProvider>
   );
 }

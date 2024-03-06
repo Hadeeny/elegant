@@ -6,6 +6,7 @@
 
 // npx prisma generate to add new fields/tables to db
 // npx prisma db push to push the updated fields to the db 
+// npx prisma migrate reset to delete or reset the db
 
 generator client {
   provider = "prisma-client-js"

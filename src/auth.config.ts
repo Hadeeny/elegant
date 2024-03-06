@@ -5,8 +5,18 @@ import type { NextAuthConfig } from "next-auth";
 import { LoginSchema } from "@/lib/validators/account-credentials-validators";
 import { getUserByEmail } from "./data/users";
 import bcrypt from "bcryptjs";
+import { db } from "./lib/db";
 
 export default {
+  events: {
+    // sets verified email for users who signed in with 0auths
+    async linkAccount({ user }) {
+      await db.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
+  },
   providers: [
     Github({
       clientId: process.env.GITHUB_CLIENT_ID,
