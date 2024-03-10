@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import { siteConfig } from "@/config/site";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -69,6 +70,7 @@ export default async function RootLayout({
         <body className={inter.className}>
           <main className="min-h-screen flex flex-col relative">
             {/* <Header /> */}
+            <ModalProvider />
             {children}
           </main>
         </body>
