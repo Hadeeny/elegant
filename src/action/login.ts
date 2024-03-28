@@ -11,7 +11,7 @@ import {
 } from "@/lib/validators/account-credentials-validators";
 import { getUserByEmail } from "../data/users";
 import { signIn } from "@/auth";
-import { DEFAUTL_LOGIN_REDIRECT } from "@/all-routes";
+import { DEFAULT_LOGIN_REDIRECT } from "@/all-routes";
 import { AuthError } from "next-auth";
 
 export const login = async (values: TLoginSchema) => {
@@ -26,7 +26,7 @@ export const login = async (values: TLoginSchema) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAUTL_LOGIN_REDIRECT,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {

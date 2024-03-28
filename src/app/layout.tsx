@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import { ModalProvider } from "@/providers/modal-provider";
+import { ToastProvider } from "@/providers/toast-providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,7 +55,7 @@ export const metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
+  // manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default async function RootLayout({
@@ -70,6 +71,7 @@ export default async function RootLayout({
         <body className={inter.className}>
           <main className="min-h-screen flex flex-col relative">
             {/* <Header /> */}
+            <ToastProvider />
             <ModalProvider />
             {children}
           </main>

@@ -4,7 +4,7 @@
  * @type {string[]}
  */
 
-export const publicRoutes = ["/", "/admin"];
+export const publicRoutes = ["/"];
 
 /**
  * An array of routes that are used for authentication
@@ -27,4 +27,4 @@ export const apiAuthPrefix = "/api/auth";
  * @type {string}
  */
 
-export const DEFAUTL_LOGIN_REDIRECT = "/account";
+export const DEFAULT_LOGIN_REDIRECT = "/account";
