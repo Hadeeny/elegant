@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 

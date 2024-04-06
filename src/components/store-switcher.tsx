@@ -39,8 +39,6 @@ export default function StoreSwitcher({
   const params = useParams();
   const router = useRouter();
 
-  console.log(storeModal.isOpen);
-
   const formattedItems = items.map((item) => ({
     label: item.name,
     value: item.id,

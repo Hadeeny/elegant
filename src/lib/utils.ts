@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -27,3 +28,13 @@ export function formatPrice(
     maximumFractionDigits: 2,
   }).format(numericPrice);
 }
+
+interface UserProp {
+  userId: string;
+}
+
+export const getCurrentUser = async (): Promise<UserProp> => {
+  const session = await auth();
+  const user = session?.user;
+  return { userId: user?.id };
+};

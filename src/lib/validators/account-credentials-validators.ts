@@ -17,3 +17,8 @@ export const LoginSchema = z.object({
     .min(6, { message: "Password must be atleast 8 characters long!" }),
 });
 export type TLoginSchema = z.infer<typeof LoginSchema>;
+
+export const SettingsFormSchema = z.object({
+  storeName: z.string().min(2),
+});
+export type TSettingsFormValues = z.infer<typeof SettingsFormSchema>;
