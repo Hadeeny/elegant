@@ -18,6 +18,8 @@ import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import AlertModal from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface SettingsFormProps {
   initialData: Store;
@@ -30,6 +32,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData, userId }) => {
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const router = useRouter();
+  const origin = useOrigin();
 
   const defaultValues: TSettingsFormValues = initialData
     ? {
@@ -117,6 +120,12 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData, userId }) => {
           Save changes
         </Button>
       </form>
+      <Divider />
+      <ApiAlert
+        description={`${origin}/api/${params.storeId}`}
+        title="NEXT_PUBLIC_API_URL"
+        variant="admin"
+      />
     </>
   );
 };

@@ -60,6 +60,7 @@ model User {
 model Store {
   id            String    @id @default(cuid())
   name          String?
+  billboards    Billboard[] @relation("StoreToBillboard")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   userId        String
@@ -69,3 +70,16 @@ model Store {
   
   // accounts      Account[]
 }
+
+model Billboard {
+  id  String @id @default(cuid())
+  storeId   String
+  store   Store   @relation("StoreToBillboard", fields: [storeId], references: [id])
+  label String
+  imageUrl  String
+   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// The billboard model has a storeId property, which obviously references the Store model
+// so we need to link them using the @relation, references: [id] meaning the id property inside the Store Model

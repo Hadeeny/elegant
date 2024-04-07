@@ -22,3 +22,9 @@ export const SettingsFormSchema = z.object({
   storeName: z.string().min(2),
 });
 export type TSettingsFormValues = z.infer<typeof SettingsFormSchema>;
+
+export const BillboardFormSchema = z.object({
+  label: z.string().min(2),
+  imageUrl: z.string().min(2),
+});
+export type TBillboardFormValues = z.infer<typeof BillboardFormSchema>;
