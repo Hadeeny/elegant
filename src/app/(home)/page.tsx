@@ -5,17 +5,28 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRightFromLine } from "lucide-react";
 import { Icons } from "@/components/Icons";
-import { cn } from "@/lib/utils";
+import { cn, getCurrentUser } from "@/lib/utils";
 import { ImagesSlide } from "@/components/image-slider";
 import { ProductSlider } from "@/components/products-slider";
 import { new_arrivals } from "@/data/products";
+import { Post } from "@/components/post";
+import { db } from "@/lib/db";
+import { auth } from "@/auth";
 
-function Home() {
+async function Home() {
   const images = [
     { id: 0, link: "/images/bigchair.png" },
     { id: 1, link: "/images/bigchair.png" },
     { id: 2, link: "/images/bigchair.png" },
   ];
+
+  const { userId } = await getCurrentUser();
+
+  const allPosts = await db.post.findMany({
+    where: {
+      userId,
+    },
+  });
   return (
     <>
       <MaxWidthWrapper>
@@ -98,6 +109,13 @@ function Home() {
       </MaxWidthWrapper>
       <ProductSlider products={new_arrivals} title="New Arivals" />
       <br />
+      <Post />
+      <p>Here are your posts</p>
+      <div>
+        {allPosts.map((post, i) => (
+          <div key={i}>{post.body}</div>
+        ))}
+      </div>
     </>
   );
 }

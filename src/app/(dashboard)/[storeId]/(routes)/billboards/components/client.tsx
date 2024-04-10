@@ -3,12 +3,13 @@
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { Divider } from "@nextui-org/react";
+import { Billboard } from "@prisma/client";
 import { Divide, Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 
 interface BillboardClientProps {
-  data: any;
+  data: Billboard[];
 }
 
 export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {

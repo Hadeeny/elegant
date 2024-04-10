@@ -55,6 +55,7 @@ model User {
   password      String?
   accounts      Account[]
   stores        Store[]
+  posts         Post[]
 }
 
 model Store {
@@ -83,3 +84,12 @@ model Billboard {
 
 // The billboard model has a storeId property, which obviously references the Store model
 // so we need to link them using the @relation, references: [id] meaning the id property inside the Store Model
+
+model Post {
+  id  String @id @default(cuid())
+  userId  String
+  body    String
+  user    User @relation(fields: [userId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

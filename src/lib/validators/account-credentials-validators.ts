@@ -28,3 +28,11 @@ export const BillboardFormSchema = z.object({
   imageUrl: z.string().min(2),
 });
 export type TBillboardFormValues = z.infer<typeof BillboardFormSchema>;
+
+export const postSchema = z.object({
+  post: z.string().min(2, {
+    message: "post must be at least 2 characters.",
+  }),
+});
+
+export type TPostValues = z.infer<typeof postSchema>;

@@ -73,18 +73,21 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
         await axios.patch(
           `/api/${params.storeId}/billboards/${params.billboardId}`,
           {
-            name: data.label,
+            label: data.label,
             userId,
+            imageUrl: data.imageUrl,
           }
         );
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, {
-          name: data.label,
+          label: data.label,
           userId,
+          imageUrl: data.imageUrl,
         });
       }
 
       router.refresh();
+      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error("Something went wrong.");
