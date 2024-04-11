@@ -10,6 +10,7 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import GoogleSvg from "../../../../public/images/google.svg";
 import {
   RegisterSchema,
   LoginSchema,
@@ -20,7 +21,7 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { login } from "@/action/login";
 import { Eye, EyeOff, Github, GoalIcon } from "lucide-react";
-import { DEFAUTL_LOGIN_REDIRECT } from "@/all-routes";
+import { DEFAULT_LOGIN_REDIRECT } from "@/all-routes";
 
 const SignInPage = () => {
   const [isPending, startTransition] = useTransition();
@@ -37,7 +38,7 @@ const SignInPage = () => {
 
   const onAuthClick = (provider: "github" | "google") => {
     signIn(provider, {
-      callbackUrl: DEFAUTL_LOGIN_REDIRECT,
+      callbackUrl: DEFAULT_LOGIN_REDIRECT,
     });
   };
 
@@ -139,7 +140,7 @@ const SignInPage = () => {
           className="w-full space-x-3"
         >
           {isPending && <Spinner color="white" size="sm" className="mr-4" />}
-          <GoalIcon />
+          <Image width={20} height={20} src={GoogleSvg} alt="" />
         </Button>
       </div>
     </div>

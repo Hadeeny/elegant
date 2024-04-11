@@ -13,8 +13,10 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import { TRegisterSchema } from "@/lib/validators/account-credentials-validators";
 
 const AccountPage = () => {
   const session = useSession();
@@ -22,6 +24,12 @@ const AccountPage = () => {
   const logout = () => {
     signOut();
   };
+  const { register } = useForm<TRegisterSchema>({
+    defaultValues: {
+      email: session?.data?.user.email,
+      name: session?.data?.user.name,
+    },
+  });
   const accountOptions = ["Account", "Address", "Orders", "Wishlist", "Logout"];
   const { name, image } = session?.data?.user;
   return (
@@ -65,6 +73,7 @@ const AccountPage = () => {
               label="FIRST NAME"
               labelPlacement={"outside"}
               placeholder="First Name"
+              {...register("name")}
               classNames={{
                 inputWrapper: ["rounded-md"],
               }}
@@ -88,6 +97,7 @@ const AccountPage = () => {
               type="text"
               variant="bordered"
               label="DISPLAY NAME"
+              {...register("username")}
               labelPlacement={"outside"}
               placeholder="Display Name"
               description={
@@ -102,6 +112,7 @@ const AccountPage = () => {
               required
               variant="bordered"
               label="EMAIL *"
+              {...register("email")}
               labelPlacement={"outside"}
               placeholder="Email"
               // description={"null"}
@@ -117,6 +128,7 @@ const AccountPage = () => {
               variant="bordered"
               label="OLD PASSWORD"
               labelPlacement={"outside"}
+              {...register("password")}
               placeholder="Old Password"
               // description={"null"}
             />
