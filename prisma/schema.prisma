@@ -65,6 +65,7 @@ model Store {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   userId        String
+  categories    Category[] @relation("StoreToCategory")
   user          User    @relation(fields: [userId], references: [id])
   // user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   // role          UserRole @default(USER)
@@ -76,6 +77,7 @@ model Billboard {
   id  String @id @default(cuid())
   storeId   String
   store   Store   @relation("StoreToBillboard", fields: [storeId], references: [id])
+  categories  Category[]  
   label String
   imageUrl  String
    createdAt     DateTime @default(now())
@@ -90,6 +92,17 @@ model Post {
   userId  String
   body    String
   user    User @relation(fields: [userId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Category {
+  id  String @id @default(cuid())
+  storeId   String
+  store     Store  @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboardId   String
+  billboard  Billboard  @relation(fields: [billboardId], references: [id])
+  name    String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }

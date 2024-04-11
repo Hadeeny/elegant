@@ -38,7 +38,7 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
         <Chip variant={variantMap[variant]}>{textMap[variant]}</Chip>
       </AlertTitle>
       <AlertDescription className="mt-4 flex items-center justify-between">
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+        <code className="relative overflow-scroll sm:overflow-auto rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
           {description}
         </code>
         <Button variant="outline" size="sm" onClick={() => onCopy(description)}>

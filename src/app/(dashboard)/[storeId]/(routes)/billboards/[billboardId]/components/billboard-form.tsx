@@ -106,7 +106,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
         }
       );
       router.refresh();
-      router.push("/admin");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard deleted.");
     } catch (error: any) {
       toast.error("Make sure you removed all categories in this billboard");
@@ -164,7 +164,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="w-full sm:w-1/3">
             <Input
               variant="bordered"
               value={form.watch("label")}

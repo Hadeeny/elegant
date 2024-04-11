@@ -23,6 +23,7 @@ import { post } from "@/action/post";
 import { db } from "@/lib/db";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export function Post() {
   // 1. Define your form.
@@ -41,7 +42,7 @@ export function Post() {
     // ✅ This will be type-safe and validated.
     post(values).then((data) => {
       toast.success("post created");
-      router.refresh();
+      // revalidatePath("/", "page");
     });
   }
 

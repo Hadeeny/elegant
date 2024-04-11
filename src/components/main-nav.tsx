@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import React from "react";
+import { AdminMenu } from "./admin-menu";
 
 export const MainNav = ({
   className,
@@ -29,23 +30,31 @@ export const MainNav = ({
     },
   ];
   return (
-    <nav
-      className={cn("flex items-center space-x-4 lg lg:space-x-6", className)}
-    >
-      {routes.map((route, i) => (
-        <Link
-          key={route.href}
-          href={route.href}
-          className={cn(
-            "text-sm font-medium transition-colors hover:text-primary",
-            route.active
-              ? "text-black dark:text-white"
-              : "text-muted-foreground"
-          )}
-        >
-          {route.label}
-        </Link>
-      ))}
-    </nav>
+    <>
+      <nav
+        className={cn(
+          "sm:flex items-center hidden  space-x-4 lg lg:space-x-6",
+          className
+        )}
+      >
+        {routes.map((route, i) => (
+          <Link
+            key={route.href}
+            href={route.href}
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary",
+              route.active
+                ? "text-black dark:text-white"
+                : "text-muted-foreground"
+            )}
+          >
+            {route.label}
+          </Link>
+        ))}
+      </nav>
+      <div className="sm:hidden block ml-4">
+        <AdminMenu routes={routes} />
+      </div>
+    </>
   );
 };
