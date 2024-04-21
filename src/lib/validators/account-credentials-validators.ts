@@ -29,6 +29,12 @@ export const BillboardFormSchema = z.object({
 });
 export type TBillboardFormValues = z.infer<typeof BillboardFormSchema>;
 
+export const CategoryFormSchema = z.object({
+  name: z.string().min(2),
+  billboardId: z.string().min(2),
+});
+export type TCategoryFormValues = z.infer<typeof CategoryFormSchema>;
+
 export const postSchema = z.object({
   post: z.string().min(2, {
     message: "post must be at least 2 characters.",

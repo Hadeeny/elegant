@@ -3,13 +3,13 @@
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import {
-  BillboardFormSchema,
-  TBillboardFormValues,
+  CategoryFormSchema,
+  TCategoryFormValues,
 } from "@/lib/validators/account-credentials-validators";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Divider, Input } from "@nextui-org/react";
-import { Billboard, Store } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { Trash } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -20,7 +20,6 @@ import toast from "react-hot-toast";
 import AlertModal from "@/components/modals/alert-modal";
 import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
-import ImageUpload from "@/components/ui/image-upload";
 import {
   Form,
   FormControl,
@@ -29,16 +28,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Select } from "@/components/ui/select";
 
-interface BillboardFormProps {
-  initialData: Billboard | null;
+interface CategoryFormProps {
+  initialData: Category | null;
   userId: string;
 }
 
-const BillboardForm: React.FC<BillboardFormProps> = ({
-  initialData,
-  userId,
-}) => {
+const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, userId }) => {
   const [open, setOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -46,43 +43,45 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
   const router = useRouter();
   const origin = useOrigin();
 
-  const title = initialData ? "Edit Billboard" : "Create Billboard";
-  const description = initialData ? "Edit a Billboard" : "Add a Billboard";
-  const toastMessage = initialData ? "Billboard Updated" : "Billboard Created";
+  const title = initialData ? "Edit Category" : "Create Category";
+  const description = initialData ? "Edit a Category" : "Add a Category";
+  const toastMessage = initialData ? "Category Updated" : "Category Created";
   const action = initialData ? "Save Changes" : "Create";
 
-  const defaultValues: TBillboardFormValues = initialData
+  const defaultValues: TCategoryFormValues = initialData
     ? {
-        label: initialData.label || "", // Providing an empty string if name is null
-        imageUrl: initialData.imageUrl,
+        name: initialData.name || "", // Providing an empty string if name is null
+        // name: initialData.name,
+        billboardId: initialData.billboardId,
       }
     : {
-        label: "", // Default empty string if initialData is null
-        imageUrl: "",
+        name: "", // Default empty string if initialData is null
+        // imageUrl: "",
+        billboardId: "",
       };
 
-  const form = useForm<TBillboardFormValues>({
-    resolver: zodResolver(BillboardFormSchema),
+  const form = useForm<TCategoryFormValues>({
+    resolver: zodResolver(CategoryFormSchema),
     defaultValues: defaultValues,
   });
 
-  const onSubmit = async (data: TBillboardFormValues) => {
+  const onSubmit = async (data: TCategoryFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
         await axios.patch(
           `/api/${params.storeId}/billboards/${params.billboardId}`,
           {
-            label: data.label,
+            label: data.name,
             userId,
-            imageUrl: data.imageUrl,
+            // imageUrl: data.na,
           }
         );
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, {
-          label: data.label,
+          name: data.name,
           userId,
-          imageUrl: data.imageUrl,
+          // imageUrl: data.imageUrl,
         });
       }
 
@@ -146,35 +145,22 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Background image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value ? [field.value] : []}
-                    disabled={loading}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => field.onChange("")}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="w-full sm:w-1/3">
-            <Input
-              variant="bordered"
-              value={form.watch("label")}
-              // placeholder="Name"
-              disabled={loading}
-              {...form.register("label")}
-              className="text-2xl"
-              radius="sm"
-              label="Billboard Label"
-            />
+          <div className="grid grid-cols-3 gap-8">
+            <div className="">
+              <Input
+                variant="bordered"
+                value={form.watch("name")}
+                // placeholder="Name"
+                disabled={loading}
+                {...form.register("name")}
+                className="text-2xl"
+                radius="sm"
+                label="Name"
+              />
+            </div>
+            <div className="">
+              {/* <Select disabled={loading} {...form.register('billboardId')} value={form.getValues('billboardId')}></Select> */}
+            </div>
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
@@ -186,4 +172,4 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
   );
 };
 
-export default BillboardForm;
+export default CategoryForm;
