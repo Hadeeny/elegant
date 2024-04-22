@@ -41,6 +41,14 @@ export const SizeFormSchema = z.object({
 });
 export type TSizeFormValues = z.infer<typeof SizeFormSchema>;
 
+export const ColorFormSchema = z.object({
+  name: z.string().min(1),
+  value: z.string().min(4).regex(/^#/, {
+    message: "Colour value must be a valid hex code. Starts with #",
+  }),
+});
+export type TColorFormValues = z.infer<typeof ColorFormSchema>;
+
 export const postSchema = z.object({
   post: z.string().min(2, {
     message: "post must be at least 2 characters.",
