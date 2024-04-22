@@ -35,6 +35,12 @@ export const CategoryFormSchema = z.object({
 });
 export type TCategoryFormValues = z.infer<typeof CategoryFormSchema>;
 
+export const SizeFormSchema = z.object({
+  name: z.string().min(1),
+  value: z.string().min(1),
+});
+export type TSizeFormValues = z.infer<typeof SizeFormSchema>;
+
 export const postSchema = z.object({
   post: z.string().min(2, {
     message: "post must be at least 2 characters.",

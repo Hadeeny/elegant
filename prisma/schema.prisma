@@ -67,6 +67,8 @@ model Store {
   userId        String
   categories    Category[] @relation("StoreToCategory")
   user          User    @relation(fields: [userId], references: [id])
+  sizes         Size[]
+  colors       Color[]
   // user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   // role          UserRole @default(USER)
   
@@ -103,6 +105,26 @@ model Category {
   billboardId   String
   billboard  Billboard  @relation(fields: [billboardId], references: [id])
   name    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Size {
+  id  String @id @default(cuid())
+  storeId String
+  store   Store @relation(fields: [storeId], references: [id])
+  name  String
+  value   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Color {
+  id  String @id @default(cuid())
+  storeId String
+  store   Store @relation(fields: [storeId], references: [id])
+  name  String
+  value   String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
