@@ -8,8 +8,8 @@ import {
 } from "@/lib/validators/account-credentials-validators";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Divider, Input } from "@nextui-org/react";
-import { Category } from "@prisma/client";
+import { Divider } from "@nextui-org/react";
+import { Billboard, Category } from "@prisma/client";
 import { Trash } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -28,14 +28,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 interface CategoryFormProps {
   initialData: Category | null;
-  userId: string;
+  billboards: Billboard[];
+  userId: String;
 }
 
-const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, userId }) => {
+const CategoryForm: React.FC<CategoryFormProps> = ({
+  initialData,
+  userId,
+  billboards,
+}) => {
   const [open, setOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -70,23 +82,23 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, userId }) => {
       setLoading(true);
       if (initialData) {
         await axios.patch(
-          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          `/api/${params.storeId}/categories/${params.categoryId}`,
           {
-            label: data.name,
+            name: data.name,
             userId,
-            // imageUrl: data.na,
+            billboardId: data.billboardId,
           }
         );
       } else {
-        await axios.post(`/api/${params.storeId}/billboards`, {
+        await axios.post(`/api/${params.storeId}/categories`, {
           name: data.name,
           userId,
-          // imageUrl: data.imageUrl,
+          billboardId: data.billboardId,
         });
       }
 
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/categories`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error("Something went wrong.");
@@ -99,16 +111,16 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, userId }) => {
     try {
       setLoading(true);
       await axios.delete(
-        `/api/${params.storeId}/billboards/${params.billboardId}`,
+        `/api/${params.storeId}/categories/${params.categoryId}`,
         {
           data: { userId },
         }
       );
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard deleted.");
+      router.push(`/${params.storeId}/categories`);
+      toast.success("Category deleted.");
     } catch (error: any) {
-      toast.error("Make sure you removed all categories in this billboard");
+      toast.error("Make sure you removed all products in this category");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -146,21 +158,46 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, userId }) => {
           className="space-y-8 w-full"
         >
           <div className="grid grid-cols-3 gap-8">
-            <div className="">
-              <Input
-                variant="bordered"
-                value={form.watch("name")}
-                // placeholder="Name"
-                disabled={loading}
-                {...form.register("name")}
-                className="text-2xl"
-                radius="sm"
-                label="Name"
-              />
-            </div>
-            <div className="">
-              {/* <Select disabled={loading} {...form.register('billboardId')} value={form.getValues('billboardId')}></Select> */}
-            </div>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="billboardId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Billboard</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a billboard" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {billboards.map((billboard) => (
+                        <SelectItem key={billboard.id} value={billboard.id}>
+                          {billboard.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            ></FormField>
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
