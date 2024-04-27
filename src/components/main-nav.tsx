@@ -18,6 +18,7 @@ export const MainNav = ({
       label: "Overview",
       active: pathName === `/${params.storeId}`,
     },
+
     {
       href: `/${params.storeId}/billboards`,
       label: "Billboards",
@@ -37,6 +38,11 @@ export const MainNav = ({
       href: `/${params.storeId}/colors`,
       label: "Colours",
       active: pathName === `/${params.storeId}/colors`,
+    },
+    {
+      href: `/${params.storeId}/products`,
+      label: "Products",
+      active: pathName === `/${params.storeId}/products`,
     },
     {
       href: `/${params.storeId}/settings`,

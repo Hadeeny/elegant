@@ -38,3 +38,9 @@ export const getCurrentUser = async (): Promise<UserProp> => {
   const user = session?.user;
   return { userId: user?.id };
 };
+
+export const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 2,
+});
