@@ -45,7 +45,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
   },
   {
     accessorKey: "color",
-    header: "Color",
+    header: "Colour",
     cell: ({ row }) => {
       <div className="flex items-center gap-x-2">
         {row.original.color}

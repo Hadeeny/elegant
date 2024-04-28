@@ -114,14 +114,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
         await axios.patch(
           `/api/${params.storeId}/products/${params.productId}`,
           {
-            name: data.name,
+            ...data,
             userId,
             // imageUrl: data.imageUrl,
           }
         );
       } else {
         await axios.post(`/api/${params.storeId}/products`, {
-          label: data.name,
+          ...data,
           userId,
           // imageUrl: data.imageUrl,
         });
@@ -212,7 +212,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-3 grid-cols-1 gap-8">
             <FormField
               control={form.control}
               name="name"
