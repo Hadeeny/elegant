@@ -19,14 +19,6 @@ async function Home() {
     { id: 1, link: "/images/bigchair.png" },
     { id: 2, link: "/images/bigchair.png" },
   ];
-
-  const { userId } = await getCurrentUser();
-
-  const allPosts = await db.post.findMany({
-    where: {
-      userId,
-    },
-  });
   return (
     <>
       <MaxWidthWrapper>
@@ -109,13 +101,6 @@ async function Home() {
       </MaxWidthWrapper>
       <ProductSlider products={new_arrivals} title="New Arivals" />
       <br />
-      <Post />
-      <p>Here are your posts</p>
-      <div>
-        {allPosts.map((post, i) => (
-          <div key={i}>{post.body}</div>
-        ))}
-      </div>
     </>
   );
 }

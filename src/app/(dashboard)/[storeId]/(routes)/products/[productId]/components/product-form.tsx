@@ -84,7 +84,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     ? {
         name: initialData.name || "", // Providing an empty string if name is null
         images: initialData.images,
-        price: initialData.price.toNumber(),
+        price: Number(initialData.price),
         categoryId: initialData.categoryId,
         colorId: initialData.colorId,
         sizeId: initialData.sizeId,
