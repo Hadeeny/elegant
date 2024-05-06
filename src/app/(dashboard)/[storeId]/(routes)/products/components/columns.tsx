@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 // import { CellAction } from "./cell-action"
 import CellAction from "./cell-action";
+import Image from "next/image";
 
 export type ProductColumn = {
   id: string;
@@ -12,6 +13,7 @@ export type ProductColumn = {
   size: string;
   category: string;
   color: string;
+  image: string;
   isFeatured: boolean;
   isArchived: boolean;
   createdAt: string;
@@ -19,9 +21,25 @@ export type ProductColumn = {
 
 export const columns: ColumnDef<ProductColumn>[] = [
   {
+    accessorKey: "image",
+    header: "Image",
+    cell: ({ row }) => (
+      <Image
+        objectFit="cover"
+        width={80}
+        height={80}
+        // fill
+        style={{ objectFit: "cover" }}
+        alt=""
+        src={row.original.image}
+      />
+    ),
+  },
+  {
     accessorKey: "name",
     header: "Name ",
   },
+
   {
     accessorKey: "isArchived",
     header: "Archived ",

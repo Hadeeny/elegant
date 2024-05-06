@@ -33,6 +33,7 @@ export const ProductClient = async ({
       category: true,
       color: true,
       size: true,
+      images: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -48,6 +49,7 @@ export const ProductClient = async ({
     category: item.category.name,
     size: item.size.name,
     color: item.color.value,
+    image: item.images[0].url,
     createdAt: format(item.createdAt, "MMMM do, yyy"),
   }));
 

@@ -1,10 +1,5 @@
 import React, { Suspense } from "react";
 import { ProductClient } from "./components/client";
-import { db } from "@/lib/db";
-import { format } from "date-fns";
-import { unstable_noStore as noStore } from "next/cache";
-import { formatPrice, formatter } from "@/lib/utils";
-import { ProductColumn } from "./components/columns";
 
 const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
   return (
