@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import { ModalProvider } from "@/providers/modal-provider";
 import { ToastProvider } from "@/providers/toast-providers";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -72,12 +73,19 @@ export default async function RootLayout({
       <html lang="en">
         {/* <NextUI> */}
         <body className={inter.className}>
-          <main className="min-h-screen flex flex-col relative">
-            {/* <Header /> */}
-            <ToastProvider />
-            <ModalProvider />
-            {children}
-          </main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="min-h-screen flex flex-col relative">
+              {/* <Header /> */}
+              <ToastProvider />
+              <ModalProvider />
+              {children}
+            </main>
+          </ThemeProvider>
         </body>
         {/* </NextUI> */}
       </html>

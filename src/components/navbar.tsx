@@ -4,6 +4,7 @@ import StoreSwitcher from "@/components/store-switcher";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import UserButton from "./user-button";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar = async () => {
   const session = await auth();
@@ -18,8 +19,9 @@ const Navbar = async () => {
       <div className="flex h-16 items-center px-4">
         <StoreSwitcher className="" items={stores} />
         <MainNav className="mx-6" />
-        <div className="ml-auto flex-items-center space-x-3">
+        <div className="ml-auto flex items-center space-x-3">
           <UserButton />
+          <ModeToggle />
         </div>
       </div>
     </div>
