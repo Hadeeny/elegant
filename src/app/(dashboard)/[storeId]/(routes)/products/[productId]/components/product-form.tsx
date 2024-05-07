@@ -240,44 +240,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         )}
       </div>
       <Divider />
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
-          <FormField
-            control={form.control}
-            name="images"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Images</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value.map((img) => img.url)}
-                    disabled={loading}
-                    onChange={(url) => {
-                      field.onChange([...field.value, { url }]);
-                      console.log(field.value);
-                    }}
-                    onRemove={(url) =>
-                      field.onChange([
-                        ...field.value.filter((current) => current.url !== url),
-                      ])
-                    }
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid sm:grid-cols-3 grid-cols-1 gap-8"></div>
-          <Button disabled={loading} className="ml-auto" type="submit">
-            {action}
-          </Button>
-        </form>
-      </Form>
-      <Divider />
-      <Divider />
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
@@ -300,32 +262,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="overflow-hidden rounded-full"
-                >
-                  {/* <Image
-                  src="/placeholder-user.jpg"
-                  width={36}
-                  height={36}
-                  alt="Avatar"
-                  className="overflow-hidden rounded-full"
-                /> */}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </header>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -346,7 +282,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                       <Button variant="outline" size="sm">
                         Discard
                       </Button>
-                      <Button size="sm">Save Product</Button>
+                      <Button size="sm">{action}</Button>
                     </div>
                   </div>
                   <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
@@ -539,15 +475,54 @@ const ProductForm: React.FC<ProductFormProps> = ({
                       </Card>
                     </div>
                     <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+                      <Card
+                        className="overflow-hidden"
+                        x-chunk="dashboard-07-chunk-4"
+                      >
+                        <CardHeader>
+                          <CardTitle>Product Images</CardTitle>
+                          <CardDescription>
+                            Lipsum dolor sit amet, consectetur adipiscing elit
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <FormField
+                            control={form.control}
+                            name="images"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Images</FormLabel>
+                                <FormControl>
+                                  <ImageUpload
+                                    value={field.value.map((img) => img.url)}
+                                    disabled={loading}
+                                    onChange={(url) => {
+                                      field.onChange([...field.value, { url }]);
+                                      console.log(field.value);
+                                    }}
+                                    onRemove={(url) =>
+                                      field.onChange([
+                                        ...field.value.filter(
+                                          (current) => current.url !== url
+                                        ),
+                                      ])
+                                    }
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </CardContent>
+                      </Card>
                       <Card x-chunk="dashboard-07-chunk-3">
                         <CardHeader>
                           <CardTitle>Product Status</CardTitle>
-                        </CardHeader>
-                        <CardDescription>
-                          <FormDescription>
+                          <CardDescription>
                             This product will appear on the homepage
-                          </FormDescription>
-                        </CardDescription>
+                          </CardDescription>
+                        </CardHeader>
+
                         <CardContent>
                           <FormField
                             control={form.control}
@@ -568,52 +543,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                           />
                         </CardContent>
                       </Card>
-                      <Card
-                        className="overflow-hidden"
-                        x-chunk="dashboard-07-chunk-4"
-                      >
-                        <CardHeader>
-                          <CardTitle>Product Images</CardTitle>
-                          <CardDescription>
-                            Lipsum dolor sit amet, consectetur adipiscing elit
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid gap-2">
-                            {/* <Image
-                        alt="Product image"
-                        className="aspect-square w-full rounded-md object-cover"
-                        height="300"
-                        src="/placeholder.svg"
-                        width="300"
-                      /> */}
-                            <div className="grid grid-cols-3 gap-2">
-                              <button>
-                                {/* <Image
-                            alt="Product image"
-                            className="aspect-square w-full rounded-md object-cover"
-                            height="84"
-                            src="/placeholder.svg"
-                            width="84"
-                          /> */}
-                              </button>
-                              <button>
-                                {/* <Image
-                            alt="Product image"
-                            className="aspect-square w-full rounded-md object-cover"
-                            height="84"
-                            src="/placeholder.svg"
-                            width="84"
-                          /> */}
-                              </button>
-                              <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
-                                <Upload className="h-4 w-4 text-muted-foreground" />
-                                <span className="sr-only">Upload</span>
-                              </button>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
+
                       <Card x-chunk="dashboard-07-chunk-5">
                         <CardHeader>
                           <CardTitle>Archive Product</CardTitle>
