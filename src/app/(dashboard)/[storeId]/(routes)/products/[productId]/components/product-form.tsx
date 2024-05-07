@@ -7,6 +7,61 @@ import {
   TProductFormValues,
 } from "@/lib/validators/account-credentials-validators";
 
+import Link from "next/link";
+import {
+  ChevronLeft,
+  Home,
+  LineChart,
+  Package,
+  Package2,
+  PanelLeft,
+  PlusCircle,
+  Search,
+  Settings,
+  ShoppingCart,
+  Upload,
+  Users2,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Label } from "@/components/ui/label";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Divider } from "@nextui-org/react";
 import {
@@ -48,6 +103,9 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+// import ProductDashboard from "./custom-form";
+import CustomForm from "./custom-form";
+// import Image from 'next/image'
 
 interface ProductFormProps {
   initialData:
@@ -182,189 +240,358 @@ const ProductForm: React.FC<ProductFormProps> = ({
         )}
       </div>
       <Divider />
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
-          <FormField
-            control={form.control}
-            name="images"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Images</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value.map((img) => img.url)}
-                    disabled={loading}
-                    onChange={(url) => {
-                      field.onChange([...field.value, { url }]);
-                      console.log(field.value);
-                    }}
-                    onRemove={(url) =>
-                      field.onChange([
-                        ...field.value.filter((current) => current.url !== url),
-                      ])
-                    }
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid sm:grid-cols-3 grid-cols-1 gap-8">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Product Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Price</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="9.99" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+      <div className="flex min-h-screen w-full flex-col bg-muted/40">
+        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+          <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+            <Breadcrumb className="hidden md:flex">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="#">Dashboard</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="#">Products</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Edit Product</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </header>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+                <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+                  <div className="flex items-center gap-4">
+                    <Button variant="outline" size="icon" className="h-7 w-7">
+                      <ChevronLeft className="h-4 w-4" />
+                      <span className="sr-only">Back</span>
+                    </Button>
+                    <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+                      {initialData?.name}
+                    </h1>
+                    {/* <Badge variant="outline" className="ml-auto sm:ml-0">
+                      In stock
+                    </Badge> */}
+                    <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                      <Button variant="outline" size="sm">
+                        Discard
+                      </Button>
+                      <Button
+                        disabled={loading}
+                        className="ml-auto"
+                        type="submit"
+                        size={"sm"}
+                      >
+                        {action}
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
+                    <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
+                      <Card x-chunk="dashboard-07-chunk-0">
+                        <CardHeader>
+                          <CardTitle>Product Details</CardTitle>
+                          <CardDescription>
+                            Lipsum dolor sit amet, consectetur adipiscing elit
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid gap-6">
+                            <div className="grid gap-3">
+                              <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Product Name</FormLabel>
+                                    <FormControl>
+                                      <Input placeholder="Name" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <div className="grid gap-3">
+                              <Label htmlFor="description">Description</Label>
+                              <Textarea
+                                id="description"
+                                defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc."
+                                className="min-h-32"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card x-chunk="dashboard-07-chunk-1">
+                        <CardHeader>
+                          <CardTitle>Variant</CardTitle>
+                          <CardDescription>
+                            Lipsum dolor sit amet, consectetur adipiscing elit
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead className="w-[100px]">SKU</TableHead>
+                                <TableHead>Color</TableHead>
+                                <TableHead>Price</TableHead>
+                                <TableHead className="w-[100px]">
+                                  Size
+                                </TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell className="font-semibold">
+                                  GGPC-001
+                                </TableCell>
+                                <TableCell>
+                                  <FormField
+                                    control={form.control}
+                                    name="colorId"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <Select
+                                          onValueChange={field.onChange}
+                                          defaultValue={field.value}
+                                        >
+                                          <FormControl>
+                                            <SelectTrigger>
+                                              <SelectValue placeholder="Select a Colour" />
+                                            </SelectTrigger>
+                                          </FormControl>
+                                          <SelectContent>
+                                            {colors.map((color) => (
+                                              <SelectItem
+                                                key={color.id}
+                                                value={color.id}
+                                              >
+                                                {color.name}
+                                              </SelectItem>
+                                            ))}
+                                          </SelectContent>
+                                        </Select>
+                                      </FormItem>
+                                    )}
+                                  ></FormField>
+                                </TableCell>
+                                <TableCell>
+                                  <FormField
+                                    control={form.control}
+                                    name="price"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormControl>
+                                          <Input
+                                            type="number"
+                                            placeholder="9.99"
+                                            {...field}
+                                          />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <FormField
+                                    control={form.control}
+                                    name="sizeId"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <Select
+                                          onValueChange={field.onChange}
+                                          defaultValue={field.value}
+                                        >
+                                          <FormControl>
+                                            <SelectTrigger>
+                                              <SelectValue placeholder="Select a size" />
+                                            </SelectTrigger>
+                                          </FormControl>
+                                          <SelectContent>
+                                            {sizes.map((size) => (
+                                              <SelectItem
+                                                key={size.id}
+                                                value={size.id}
+                                              >
+                                                {size.name}
+                                              </SelectItem>
+                                            ))}
+                                          </SelectContent>
+                                        </Select>
+                                      </FormItem>
+                                    )}
+                                  ></FormField>
+                                </TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </CardContent>
+                        <CardFooter className="justify-center border-t p-4">
+                          <Button size="sm" variant="ghost" className="gap-1">
+                            <PlusCircle className="h-3.5 w-3.5" />
+                            Add Variant
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                      <Card x-chunk="dashboard-07-chunk-2">
+                        <CardHeader>
+                          <CardTitle>Product Category</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid gap-6 sm:grid-cols-3">
+                            <FormField
+                              control={form.control}
+                              name="categoryId"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Select Category</FormLabel>
+                                  <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select a category" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      {categories.map((category) => (
+                                        <SelectItem
+                                          key={category.id}
+                                          value={category.id}
+                                        >
+                                          {category.name}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </FormItem>
+                              )}
+                            ></FormField>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                    <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+                      <Card
+                        className="overflow-hidden"
+                        x-chunk="dashboard-07-chunk-4"
+                      >
+                        <CardHeader>
+                          <CardTitle>Product Images</CardTitle>
+                          <CardDescription>
+                            Lipsum dolor sit amet, consectetur adipiscing elit
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <FormField
+                            control={form.control}
+                            name="images"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Images</FormLabel>
+                                <FormControl>
+                                  <ImageUpload
+                                    value={field.value.map((img) => img.url)}
+                                    disabled={loading}
+                                    onChange={(url) => {
+                                      field.onChange([...field.value, { url }]);
+                                      console.log(field.value);
+                                    }}
+                                    onRemove={(url) =>
+                                      field.onChange([
+                                        ...field.value.filter(
+                                          (current) => current.url !== url
+                                        ),
+                                      ])
+                                    }
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </CardContent>
+                      </Card>
+                      <Card x-chunk="dashboard-07-chunk-3">
+                        <CardHeader>
+                          <CardTitle>Product Status</CardTitle>
+                          <CardDescription>
+                            This product will appear on the homepage
+                          </CardDescription>
+                        </CardHeader>
 
-            <FormField
-              control={form.control}
-              name="categoryId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Select Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a billboard" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            ></FormField>
-            <FormField
-              control={form.control}
-              name="sizeId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Size</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a size" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {sizes.map((size) => (
-                        <SelectItem key={size.id} value={size.id}>
-                          {size.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            ></FormField>
-            <FormField
-              control={form.control}
-              name="colorId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Colour</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a Colour" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {colors.map((color) => (
-                        <SelectItem key={color.id} value={color.id}>
-                          {color.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            ></FormField>
-            <FormField
-              control={form.control}
-              name="isFeatured"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Featured</FormLabel>
-                    <FormDescription>
-                      This product will appear on the homepage
-                    </FormDescription>
+                        <CardContent>
+                          <FormField
+                            control={form.control}
+                            name="isFeatured"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel>Featured</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </CardContent>
+                      </Card>
+
+                      <Card x-chunk="dashboard-07-chunk-5">
+                        <CardHeader>
+                          <CardTitle>Archive Product</CardTitle>
+                          <CardDescription>
+                            Product will not appear anywhere on the store
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <FormField
+                            control={form.control}
+                            name="isArchived"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel>Archived</FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="isArchived"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Archived</FormLabel>
-                    <FormDescription>
-                      Product will not appear anywhere on the store
-                    </FormDescription>
+                  <div className="flex items-center justify-center gap-2 md:hidden">
+                    <Button variant="outline" size="sm">
+                      Discard
+                    </Button>
+                    <Button size="sm">Save Product</Button>
                   </div>
-                </FormItem>
-              )}
-            />
-          </div>
-          <Button disabled={loading} className="ml-auto" type="submit">
-            {action}
-          </Button>
-        </form>
-      </Form>
-      <Divider />
+                </div>
+              </main>
+            </form>
+          </Form>
+        </div>
+      </div>
     </>
   );
 };
