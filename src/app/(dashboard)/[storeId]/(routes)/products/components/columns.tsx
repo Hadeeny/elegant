@@ -22,17 +22,20 @@ export type ProductColumn = {
 export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "image",
-    header: "Image",
+    header: "",
     cell: ({ row }) => (
-      <Image
-        objectFit="cover"
-        width={80}
-        height={80}
-        // fill
-        style={{ objectFit: "cover" }}
-        alt=""
-        src={row.original.image}
-      />
+      <div className="size-24">
+        <Image
+          objectFit="cover"
+          width={96}
+          height={96}
+          // fill
+          // style={{ objectFit: "cover" }}
+          alt=""
+          className="w-full h-full"
+          src={row.original.image}
+        />
+      </div>
     ),
   },
   {

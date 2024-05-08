@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import {
   ProductFormSchema,
@@ -224,22 +224,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         }}
         onConfirm={deleteStore}
       />
-      <div className="flex items-center justify-between">
-        <Heading title={title} description={description} />
-        {initialData && (
-          <Button
-            disabled={loading}
-            variant="destructive"
-            size="sm"
-            onClick={() => {
-              setOpen(true);
-            }}
-          >
-            <Trash className="h-4 w-4" />
-          </Button>
-        )}
-      </div>
-      <Divider />
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
@@ -247,13 +231,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href="#">Dashboard</Link>
+                    <Link href={`/${params.storeId}`}>Dashboard</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href="#">Products</Link>
+                    <Link href={`/${params.storeId}/products`}>Products</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -272,16 +256,33 @@ const ProductForm: React.FC<ProductFormProps> = ({
                       <ChevronLeft className="h-4 w-4" />
                       <span className="sr-only">Back</span>
                     </Button>
-                    <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                      Pro Controller
-                    </h1>
-                    <Badge variant="outline" className="ml-auto sm:ml-0">
+                    <div className="flex w-full items-center justify-between">
+                      <Heading title={title} description={description} />
+                      {initialData && (
+                        <Button
+                          disabled={loading}
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => {
+                            setOpen(true);
+                          }}
+                        >
+                          <Trash className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                    {/* <Badge variant="outline" className="ml-auto sm:ml-0">
                       In stock
-                    </Badge>
+                    </Badge> */}
                     <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                      <Button variant="outline" size="sm">
+                      <Link
+                        className={buttonVariants({
+                          variant: "outline",
+                        })}
+                        href={`/${params.storeId}/products`}
+                      >
                         Discard
-                      </Button>
+                      </Link>
                       <Button size="sm">{action}</Button>
                     </div>
                   </div>
@@ -329,16 +330,91 @@ const ProductForm: React.FC<ProductFormProps> = ({
                             Lipsum dolor sit amet, consectetur adipiscing elit
                           </CardDescription>
                         </CardHeader>
-                        <CardContent>
-                          <Table>
+                        <CardContent className="">
+                          <div className="grid gap-2 grid-cols-1 sm:hidden">
+                            <FormField
+                              control={form.control}
+                              name="price"
+                              render={({ field }) => (
+                                <FormItem className="flex items-center gap-x-4">
+                                  <Label>Price</Label>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      placeholder="9.99"
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="colorId"
+                              render={({ field }) => (
+                                <FormItem className="flex items-center gap-x-4">
+                                  <Label>Color</Label>
+                                  <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select a colour" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      {colors.map((color) => (
+                                        <SelectItem
+                                          key={color.id}
+                                          value={color.id}
+                                        >
+                                          {color.name}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </FormItem>
+                              )}
+                            ></FormField>
+                            <FormField
+                              control={form.control}
+                              name="sizeId"
+                              render={({ field }) => (
+                                <FormItem className="flex items-center gap-x-4">
+                                  <Label>Size</Label>
+                                  <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select a size" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      {sizes.map((size) => (
+                                        <SelectItem
+                                          key={size.id}
+                                          value={size.id}
+                                        >
+                                          {size.name}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </FormItem>
+                              )}
+                            ></FormField>
+                          </div>
+                          <Table className="hidden sm:block">
                             <TableHeader>
                               <TableRow>
-                                <TableHead className="w-[100px]">SKU</TableHead>
-                                <TableHead>Color</TableHead>
+                                <TableHead className="">SKU</TableHead>
+                                <TableHead className="">Color</TableHead>
                                 <TableHead>Price</TableHead>
-                                <TableHead className="w-[100px]">
-                                  Size
-                                </TableHead>
+                                <TableHead>Size</TableHead>
                               </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -358,7 +434,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                                         >
                                           <FormControl>
                                             <SelectTrigger>
-                                              <SelectValue placeholder="Select a Colour" />
+                                              <SelectValue placeholder="Select a colour" />
                                             </SelectTrigger>
                                           </FormControl>
                                           <SelectContent>
