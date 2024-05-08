@@ -17,8 +17,13 @@ import { Badge } from "@/components/ui/badge";
 import Cart from "./cart";
 import { Button as Btn, buttonVariants } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Store } from "@prisma/client";
 
-export default function MobileMenu() {
+interface props {
+  stores: Store[];
+}
+
+const MobileMenu: React.FC<props> = ({ stores }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
@@ -117,4 +122,5 @@ export default function MobileMenu() {
       </NavbarMenu>
     </Navbar>
   );
-}
+};
+export default MobileMenu;

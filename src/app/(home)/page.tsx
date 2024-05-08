@@ -14,6 +14,11 @@ import { db } from "@/lib/db";
 import { auth } from "@/auth";
 
 async function Home() {
+  const products = await db.product.findMany({
+    include: {
+      images: true,
+    },
+  });
   const images = [
     { id: 0, link: "/images/bigchair.png" },
     { id: 1, link: "/images/bigchair.png" },
@@ -99,7 +104,7 @@ async function Home() {
           </div>
         </div>
       </MaxWidthWrapper>
-      <ProductSlider products={new_arrivals} title="New Arivals" />
+      <ProductSlider products={products} title="New Arivals" />
       <br />
     </>
   );

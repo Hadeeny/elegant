@@ -8,12 +8,15 @@ import {
   Button,
 } from "@nextui-org/react";
 import MobileMenu from "./mobile-menu";
+import { db } from "../lib/db";
 // import {AcmeLogo} from "./AcmeLogo.jsx";
 
-const Header = () => {
+const Header = async () => {
+  const stores = await db.store.findMany();
+
   return (
     <>
-      <MobileMenu />
+      <MobileMenu stores={stores} />
     </>
   );
 };
