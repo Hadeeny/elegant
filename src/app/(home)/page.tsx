@@ -12,18 +12,9 @@ import { new_arrivals } from "@/data/products";
 import { Post } from "@/components/post";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
+import { Suspense } from "react";
 
 async function Home() {
-  const products = await db.product.findMany({
-    include: {
-      images: true,
-    },
-  });
-  const images = [
-    { id: 0, link: "/images/bigchair.png" },
-    { id: 1, link: "/images/bigchair.png" },
-    { id: 2, link: "/images/bigchair.png" },
-  ];
   return (
     <>
       <MaxWidthWrapper>
@@ -104,7 +95,9 @@ async function Home() {
           </div>
         </div>
       </MaxWidthWrapper>
-      <ProductSlider products={products} title="New Arivals" />
+      <Suspense fallback={<p>Loading products</p>}>
+        <ProductSlider title="New Arivals" />
+      </Suspense>
       <br />
     </>
   );

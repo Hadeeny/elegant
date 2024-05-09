@@ -6,28 +6,27 @@ import { formatPrice } from "@/lib/utils";
 import { ProductCard } from "./product-card";
 import { Image as PrismaImage } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
-
-interface Product {
-  id: string;
-  storeId: string;
-  categoryId: string;
-  name: string;
-  price: Decimal;
-  images: PrismaImage[];
-  isFeatured: boolean;
-  isArchived: boolean;
-  sizeId: string;
-  colorId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { db } from "@/lib/db";
 
 interface ProductProps {
-  products: Product[];
+  where?: {
+    categoryId?: string;
+    storeId?: string;
+  };
   title: string;
 }
 
-export const ProductSlider: React.FC<ProductProps> = ({ products, title }) => {
+export const ProductSlider: React.FC<ProductProps> = async ({
+  title,
+  where = {},
+}) => {
+  const products = await db.product.findMany({
+    where: where,
+    take: 10,
+    include: {
+      images: true,
+    },
+  });
   return (
     <div className="my-12 py-4 ">
       <h2 className="font-semibold px-4 sm:px-20 text-xl mb-4 sm:mb-8 sm:text-3xl">
