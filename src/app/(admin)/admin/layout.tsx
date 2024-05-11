@@ -18,7 +18,7 @@ export default async function AdminLayout({
   });
 
   if (store) {
-    redirect(`/${store.id}`);
+    redirect(`/dashboard/${store.id}`);
   }
   return (
     <>

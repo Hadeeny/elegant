@@ -1,3 +1,5 @@
+import { Color, Image, Size, Product as PrismaProduct } from "@prisma/client";
+
 export interface ProductSliderProps {
   title: string;
   products: Product[];
@@ -21,3 +23,7 @@ export type SiteConfig = {
     github: string;
   };
 };
+
+export interface CartItem {
+  item: PrismaProduct & { size: Size; images: Image[]; color: Color };
+}

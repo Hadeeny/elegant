@@ -3,8 +3,9 @@ import { Cross } from "lucide-react";
 import React, { useState } from "react";
 import { Icons } from "./Icons";
 import Image from "next/image";
+import { Product } from "@prisma/client";
 
-const CartItem = () => {
+const CartItem: React.FC<{ item: Product }> = ({ item }) => {
   const [quantity, setQuantity] = useState(0);
   const increment = () => {
     if (quantity >= 0) {
