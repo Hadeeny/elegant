@@ -16,9 +16,18 @@ import { Icons } from "./Icons";
 import { Badge } from "@/components/ui/badge";
 import CartItem from "./cart-item";
 import { useCart } from "@/hooks/use-cart";
+import { Divider } from "@nextui-org/react";
+import { formatPrice } from "@/lib/utils";
 
 const Cart = () => {
   const { items } = useCart();
+  console.log(items);
+
+  const totalPrice: number = items.reduce(
+    (total, item) => total + Number(item.price) * item.quantity,
+    0
+  );
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -40,7 +49,16 @@ const Cart = () => {
             items.map((item, i) => <CartItem key={i} item={item} />)
           )}
         </div>
-        <SheetFooter>
+        <div className="flex justify-between items-center">
+          <p>Total</p>
+          <p className="font-semibold">$400</p>
+        </div>
+        <Divider />
+        <div className="flex font-semibold justify-between items-center">
+          <p>Total</p>
+          <p>{formatPrice(totalPrice)}</p>
+        </div>
+        <SheetFooter className="">
           <SheetClose asChild>
             <Button
               disabled={items.length === 0}

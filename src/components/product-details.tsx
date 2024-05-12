@@ -24,6 +24,7 @@ export const ProductDetails: React.FC<{ productId: string }> = async ({
   if (!productDetails) {
     return;
   }
+
   return (
     <>
       <div className="flex flex-col justify-between sm:flex-row">

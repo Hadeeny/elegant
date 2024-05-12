@@ -7,8 +7,9 @@ import { CartItem } from "@/lib/types";
 
 export const AddToCartClient: React.FC<CartItem> = ({ item }) => {
   const cart = useCart();
+  const formattedItem = { ...item, quantity: 1 };
   return (
-    <Button onClick={() => cart.addItem(item)} className="w-full">
+    <Button onClick={() => cart.addItem(formattedItem)} className="w-full">
       Add to cart
     </Button>
   );
