@@ -109,20 +109,30 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
             ))}
           </div>
           <div className="gap-x-2 space-y-2 my-4">
-            <Link
-              href="/sign-in"
-              className={buttonVariants({
-                className: "w-full",
-                size: "lg",
-              })}
-            >
-              Sign in
-            </Link>
+            <NavbarMenuItem>
+              <Link
+                href="/sign-in"
+                className={buttonVariants({
+                  className: "w-full",
+                  size: "lg",
+                })}
+              >
+                Sign in
+              </Link>
+            </NavbarMenuItem>
             <div className="flex items-center gap-x-4">
-              <Instagram size={30} />
-              <Facebook size={30} />
-              <Youtube size={30} />
-              <ModeToggle />
+              <NavbarMenuItem>
+                <Instagram size={30} />
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <Facebook size={30} />
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <Youtube size={30} />
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <ModeToggle />
+              </NavbarMenuItem>
             </div>
           </div>
         </div>
