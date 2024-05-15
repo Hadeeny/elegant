@@ -9,6 +9,7 @@ import Image from "next/image";
 export type ProductColumn = {
   id: string;
   name: string;
+  description: string;
   price: string;
   size: string;
   category: string;
@@ -41,6 +42,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "name",
     header: "Name ",
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
   },
 
   {

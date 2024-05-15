@@ -33,11 +33,7 @@ export const ProductDetails: React.FC<{ productId: string }> = async ({
         </div>
         <div className="w-full sm:w-[48%] space-y-3 sm:space-y-5">
           <h1 className="text-4xl font-semibold">{productDetails.name}</h1>
-          <p>
-            Buy one or buy a few and make every space where you sit more
-            convenient. Light and easy to move around with removable tray top,
-            handy for serving snacks.
-          </p>
+          <p>{productDetails.description}</p>
           <p className="font-semibold text-2xl">
             {formatPrice(Number(productDetails.price))}
           </p>

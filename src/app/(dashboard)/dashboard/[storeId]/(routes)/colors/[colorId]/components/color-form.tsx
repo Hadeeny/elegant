@@ -82,7 +82,7 @@ const ColorForm: React.FC<ColorFormProps> = ({ initialData, userId }) => {
       }
 
       router.refresh();
-      router.push(`/${params.storeId}/colors`);
+      router.push(`/dashboard/${params.storeId}/colors`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error("Something went wrong.");
@@ -91,14 +91,14 @@ const ColorForm: React.FC<ColorFormProps> = ({ initialData, userId }) => {
     }
   };
 
-  const deleteStore = async () => {
+  const deleteColor = async () => {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`, {
         data: { userId },
       });
       router.refresh();
-      router.push(`/${params.storeId}/colors`);
+      router.push(`/dashboard/${params.storeId}/colors`);
       toast.success("Colour deleted.");
     } catch (error: any) {
       toast.error("Make sure you removed all products using this color first");
@@ -115,7 +115,7 @@ const ColorForm: React.FC<ColorFormProps> = ({ initialData, userId }) => {
         onClose={() => {
           setOpen(false);
         }}
-        onConfirm={deleteStore}
+        onConfirm={deleteColor}
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />

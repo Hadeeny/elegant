@@ -41,6 +41,7 @@ export async function PATCH(
     const {
       userId,
       name,
+      description,
       price,
       categoryId,
       images,
@@ -56,6 +57,9 @@ export async function PATCH(
 
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
+    }
+    if (!description) {
+      return new NextResponse("Description is required", { status: 400 });
     }
 
     if (!images || !images.length) {
@@ -99,6 +103,7 @@ export async function PATCH(
         categoryId,
         colorId,
         sizeId,
+        description,
         images: {
           deleteMany: {},
         },

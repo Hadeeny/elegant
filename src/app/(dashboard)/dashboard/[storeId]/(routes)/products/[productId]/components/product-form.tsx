@@ -8,22 +8,8 @@ import {
 } from "@/lib/validators/account-credentials-validators";
 
 import Link from "next/link";
-import {
-  ChevronLeft,
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Upload,
-  Users2,
-} from "lucide-react";
+import { ChevronLeft, PlusCircle } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -40,17 +26,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -60,40 +37,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Divider } from "@nextui-org/react";
-import {
-  Billboard,
-  Category,
-  Color,
-  Image,
-  Product,
-  Size,
-  Store,
-} from "@prisma/client";
+import { Category, Color, Image, Product, Size, Store } from "@prisma/client";
 import { Trash } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import AlertModal from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { register } from "module";
+
 import {
   Select,
   SelectContent,
@@ -102,10 +66,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Textarea as TextArea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-// import ProductDashboard from "./custom-form";
-import CustomForm from "./custom-form";
-// import Image from 'next/image'
 
 interface ProductFormProps {
   initialData:
@@ -142,6 +104,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     ? {
         name: initialData.name || "", // Providing an empty string if name is null
         images: initialData.images,
+        description: initialData.description,
         price: Number(initialData.price),
         categoryId: initialData.categoryId,
         colorId: initialData.colorId,
@@ -154,6 +117,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         images: [],
         price: 0,
         categoryId: "",
+        description: "",
         colorId: "",
         sizeId: "",
         isFeatured: false,
@@ -315,11 +279,21 @@ const ProductForm: React.FC<ProductFormProps> = ({
                               />
                             </div>
                             <div className="grid gap-3">
-                              <Label htmlFor="description">Description</Label>
-                              <Textarea
-                                id="description"
-                                defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc."
-                                className="min-h-32"
+                              <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Product Description</FormLabel>
+                                    <FormControl>
+                                      <TextArea
+                                        placeholder="Add product description"
+                                        {...field}
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
                               />
                             </div>
                           </div>
