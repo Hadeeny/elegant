@@ -82,7 +82,7 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
           <ModeToggle />
         </div>
       </NavbarContent>
-      <NavbarMenu className="flex flex-col justify-between">
+      <NavbarMenu className="flex flex-col">
         <div className="">
           {menuItems.map((item, index) => (
             <NavbarMenuItem
@@ -95,7 +95,7 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
             </NavbarMenuItem>
           ))}
         </div>
-        <div>
+        <div className="gap-y-8">
           <div>
             {[1, 2].map((_, i) => (
               <NavbarMenuItem
