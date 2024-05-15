@@ -82,8 +82,8 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
           <ModeToggle />
         </div>
       </NavbarContent>
-      <NavbarMenu className="flex flex-col">
-        <div className="flex-1">
+      <NavbarMenu className="flex flex-col justify-between">
+        <div className="">
           {menuItems.map((item, index) => (
             <NavbarMenuItem
               className="border-b flex items-center py-2 border-black"
@@ -96,32 +96,34 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
           ))}
         </div>
         <div>
-          {[1, 2].map((_, i) => (
-            <NavbarMenuItem
-              className="border-b flex items-center py-2 border-black"
-              key={i}
+          <div>
+            {[1, 2].map((_, i) => (
+              <NavbarMenuItem
+                className="border-b flex items-center py-2 border-black"
+                key={i}
+              >
+                <Link className="w-full" href={"/"} size="lg">
+                  cart
+                </Link>
+              </NavbarMenuItem>
+            ))}
+          </div>
+          <div className="gap-x-2 space-y-2 my-4">
+            <Link
+              href="/sign-in"
+              className={buttonVariants({
+                className: "w-full",
+                size: "lg",
+              })}
             >
-              <Link className="w-full" href={"/"} size="lg">
-                cart
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
-        <div className="gap-x-2 space-y-2 my-4">
-          <Link
-            href="/sign-in"
-            className={buttonVariants({
-              className: "w-full",
-              size: "lg",
-            })}
-          >
-            Sign in
-          </Link>
-          <div className="flex items-center gap-x-4">
-            <Instagram size={30} />
-            <Facebook size={30} />
-            <Youtube size={30} />
-            <ModeToggle />
+              Sign in
+            </Link>
+            <div className="flex items-center gap-x-4">
+              <Instagram size={30} />
+              <Facebook size={30} />
+              <Youtube size={30} />
+              <ModeToggle />
+            </div>
           </div>
         </div>
       </NavbarMenu>
