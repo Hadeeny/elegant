@@ -18,6 +18,7 @@ import Cart from "./cart";
 import { Button as Btn, buttonVariants } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import { Store } from "@prisma/client";
+import { ModeToggle } from "./mode-toggle";
 
 interface props {
   stores: Store[];
@@ -77,8 +78,11 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
           </Link>
         </span>
         <Cart />
+        <div className="hidden sm:block">
+          <ModeToggle />
+        </div>
       </NavbarContent>
-      <NavbarMenu className="bg-white flex flex-col h-screen">
+      <NavbarMenu className="flex flex-col">
         <div className="flex-1">
           {menuItems.map((item, index) => (
             <NavbarMenuItem
@@ -113,10 +117,11 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
           >
             Sign in
           </Link>
-          <div className="flex gap-x-4">
+          <div className="flex items-center gap-x-4">
             <Instagram size={30} />
             <Facebook size={30} />
             <Youtube size={30} />
+            <ModeToggle />
           </div>
         </div>
       </NavbarMenu>
