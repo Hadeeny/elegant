@@ -8,6 +8,7 @@ import {
 } from "@nextui-org/react";
 import { Button } from "./ui/button";
 import { ChevronDown } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function AccountDropdown({ items }: { items: string[] }) {
   const [selectedKeys, setSelectedKeys] = React.useState<any>(
@@ -18,6 +19,10 @@ export default function AccountDropdown({ items }: { items: string[] }) {
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
+
+  const logout = () => {
+    signOut();
+  };
 
   return (
     <Dropdown
@@ -47,7 +52,9 @@ export default function AccountDropdown({ items }: { items: string[] }) {
           item !== "Logout" ? (
             <DropdownItem key={item}>{item}</DropdownItem>
           ) : (
-            <DropdownItem key={item}>{item}</DropdownItem>
+            <DropdownItem onClick={logout} key={item}>
+              {item}
+            </DropdownItem>
           )
         )}
       </DropdownMenu>

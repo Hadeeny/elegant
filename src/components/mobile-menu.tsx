@@ -19,6 +19,7 @@ import { Button as Btn, buttonVariants } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import { Store } from "@prisma/client";
 import { ModeToggle } from "./mode-toggle";
+import { useSession } from "next-auth/react";
 
 interface props {
   stores: Store[];
@@ -26,6 +27,7 @@ interface props {
 
 const MobileMenu: React.FC<props> = ({ stores }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const session = useSession();
 
   const menuItems = [
     { name: "Home", link: "/" },
@@ -110,15 +112,27 @@ const MobileMenu: React.FC<props> = ({ stores }) => {
           </div>
           <div className="gap-x-2 space-y-2 my-4">
             <NavbarMenuItem>
-              <Link
-                href="/sign-in"
-                className={buttonVariants({
-                  className: "w-full",
-                  size: "lg",
-                })}
-              >
-                Sign in
-              </Link>
+              {session.data?.user ? (
+                <Link
+                  href="/account"
+                  className={buttonVariants({
+                    className: "w-full",
+                    size: "lg",
+                  })}
+                >
+                  Account
+                </Link>
+              ) : (
+                <Link
+                  href="/sign-in"
+                  className={buttonVariants({
+                    className: "w-full",
+                    size: "lg",
+                  })}
+                >
+                  Sign in
+                </Link>
+              )}
             </NavbarMenuItem>
             <div className="flex items-center gap-x-4">
               <NavbarMenuItem>
