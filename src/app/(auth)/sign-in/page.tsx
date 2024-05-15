@@ -11,6 +11,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GoogleSvg from "../../../../public/images/google.svg";
+import GitHub from "../../../../public/images/github.svg";
 import {
   RegisterSchema,
   LoginSchema,
@@ -65,7 +66,7 @@ const SignInPage = () => {
           alt="chair"
         />
       </div>
-      <div className="w-full md:w-1/2 flex flex-col px-8 md:px-20 items-center justify-center h-[60vh] md:h-screen">
+      <div className="w-full md:w-1/2 flex flex-col px-8 md:px-20 items-end justify-center h-[60vh] md:h-screen">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
           <h2 className="text-2xl font-bold">Sign In</h2>
           <p className="text-sm">
@@ -120,28 +121,30 @@ const SignInPage = () => {
             Sign in
           </Button>
         </form>
-        <Button
-          onClick={() => {
-            onAuthClick("github");
-          }}
-          variant={"outline"}
-          disabled={isPending}
-          className="w-full space-x-3"
-        >
-          {isPending && <Spinner color="white" size="sm" className="mr-4" />}
-          <Github />
-        </Button>
-        <Button
-          onClick={() => {
-            onAuthClick("google");
-          }}
-          variant={"outline"}
-          disabled={isPending}
-          className="w-full space-x-3"
-        >
-          {isPending && <Spinner color="white" size="sm" className="mr-4" />}
-          <Image width={20} height={20} src={GoogleSvg} alt="" />
-        </Button>
+        <div className="flex gap-x-2 mt-4 items-center">
+          <Button
+            onClick={() => {
+              onAuthClick("github");
+            }}
+            variant={"outline"}
+            disabled={isPending}
+            className="w-full space-x-3"
+          >
+            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+            <Image width={20} height={20} src={GitHub} alt="github" />
+          </Button>
+          <Button
+            onClick={() => {
+              onAuthClick("google");
+            }}
+            variant={"outline"}
+            disabled={isPending}
+            className="w-full space-x-3"
+          >
+            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+            <Image width={20} height={20} src={GoogleSvg} alt="google" />
+          </Button>
+        </div>
       </div>
     </div>
   );
