@@ -143,6 +143,7 @@ model Product {
   category  Category @relation(fields: [categoryId], references: [id])
   name    String
   price  Decimal
+  description   String
   isFeatured    Boolean   @default(false)
   isArchived    Boolean   @default(false)
   sizeId    String
