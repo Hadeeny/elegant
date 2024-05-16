@@ -20,8 +20,15 @@ export type TLoginSchema = z.infer<typeof LoginSchema>;
 
 export const SettingsFormSchema = z.object({
   storeName: z.string().min(2),
+  role: z.enum(["USER", "ADMIN"]),
 });
 export type TSettingsFormValues = z.infer<typeof SettingsFormSchema>;
+
+export const ManageUserForm = z.object({
+  role: z.enum(["USER", "ADMIN"]),
+  id: z.string(),
+});
+export type TManageUserForm = z.infer<typeof ManageUserForm>;
 
 export const BillboardFormSchema = z.object({
   label: z.string().min(2),

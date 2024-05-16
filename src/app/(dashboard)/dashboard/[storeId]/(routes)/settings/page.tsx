@@ -20,6 +20,8 @@ const page = async ({ params }: SettingsPageProps) => {
     },
   });
 
+  const users = await db.user.findMany();
+
   if (!store) {
     redirect("/");
   }
@@ -28,7 +30,7 @@ const page = async ({ params }: SettingsPageProps) => {
     <>
       <div className="flex-col">
         <div className="flex-1 space-y-4 p-8 pt-6">
-          <SettingsForm userId={userId} initialData={store} />
+          <SettingsForm users={users} userId={userId} initialData={store} />
         </div>
       </div>
     </>

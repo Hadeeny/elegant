@@ -36,7 +36,7 @@ export const StoreModal = () => {
         }
         if (data.success && data.store.id) {
           // toast.success(data.store.id);
-          window.location.assign(`/${data.store.id}`);
+          window.location.assign(`/dashboard/${data.store.id}`);
         }
         // setSuccess(data.success)
       });

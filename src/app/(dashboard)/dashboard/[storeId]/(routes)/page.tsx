@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import StoreSwitcher from "@/components/store-switcher";
 import { db } from "@/lib/db";
 import React from "react";
+import { Dashboard } from "../components/overview-client";
 
 const DashboardPage = async ({ params }: { params: { storeId: string } }) => {
   const id = params.storeId;
@@ -14,7 +15,7 @@ const DashboardPage = async ({ params }: { params: { storeId: string } }) => {
   const session = await auth();
   return (
     <>
-      <div>This is a dashboard, your store name isss {store?.name}</div>
+      <Dashboard />
     </>
   );
 };

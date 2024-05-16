@@ -15,16 +15,13 @@ const AdminPage = () => {
       onOpen();
     }
   }, [isOpen, onOpen]);
-  const role = useCurrentRole();
-  return (
-    <div>
-      <p>This is the admin AdminPage, current role is {role}</p>
-
-      <RoleGate allowedRole={UserRole.ADMIN}>
-        <p>Hello Admin content</p>
-      </RoleGate>
-    </div>
-  );
+  // return (
+  //   <div>
+  //     <RoleGate allowedRole={UserRole.ADMIN}>
+  //       <p>Hello Admin content</p>
+  //     </RoleGate>
+  //   </div>
+  // );
 };
 
 export default AdminPage;
