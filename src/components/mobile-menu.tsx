@@ -21,11 +21,11 @@ import { Store } from "@prisma/client";
 import { ModeToggle } from "./mode-toggle";
 import { useSession } from "next-auth/react";
 
-interface props {
-  stores: Store[];
-}
+// interface props {
+//   stores: Store[];
+// }
 
-const MobileMenu: React.FC<props> = ({ stores }) => {
+const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
 

@@ -12,11 +12,11 @@ import { db } from "../lib/db";
 // import {AcmeLogo} from "./AcmeLogo.jsx";
 
 const Header = async () => {
-  const stores = await db.store.findMany();
+  // const stores = await db.store.findMany();
 
   return (
     <>
-      <MobileMenu stores={stores} />
+      <MobileMenu />
     </>
   );
 };

@@ -30,6 +30,19 @@ export const ManageUserForm = z.object({
 });
 export type TManageUserForm = z.infer<typeof ManageUserForm>;
 
+export const CheckoutForm = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  phoneNumber: z.string().min(8),
+  email: z.string().email(),
+  street: z.string(),
+  country: z.string(),
+  city: z.string(),
+  state: z.string(),
+  zipCode: z.string(),
+});
+export type TCheckoutForm = z.infer<typeof CheckoutForm>;
+
 export const BillboardFormSchema = z.object({
   label: z.string().min(2),
   imageUrl: z.string().min(2),
