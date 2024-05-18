@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +27,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import toast from "react-hot-toast";
 import { Divider } from "@nextui-org/react";
+import { useCart } from "@/hooks/use-cart";
 
 const FormSchema = z.object({
   type: z.enum(["free", "express", "pick_up"], {
@@ -111,6 +112,11 @@ export function CartOptions() {
 }
 
 const CartSummary = () => {
+  const { items } = useCart();
+  const totalPrice: number = items.reduce(
+    (total, item) => total + Number(item.price) * item.quantity,
+    0
+  );
   return (
     <Card>
       <CardHeader>
@@ -125,7 +131,7 @@ const CartSummary = () => {
         <Divider />
         <div className="flex my-4 items-center justify-between">
           <p>Total</p>
-          <p>Subtotal</p>
+          <p>{formatPrice(Number(totalPrice))}</p>
         </div>
       </CardContent>
 

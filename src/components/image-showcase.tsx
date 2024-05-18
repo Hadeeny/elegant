@@ -9,24 +9,23 @@ export const ImageShowCase: React.FC<{ images: PrismaImage[] }> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   return (
     <div>
-      <div className="size-full">
+      <div className="relative w-full aspect-square">
         <Image
           src={images[currentIndex].url}
+          className="aspect-square object-cover"
           alt=""
-          width={1000}
-          height={1000}
+          fill
         />
       </div>
-      <div className="grid gap-4 mt-8 grid-cols-3">
+      <div className="grid gap-4 mt-8 grid-cols-4">
         {images.map((image, index) => (
-          <div key={image.id} className="">
+          <div key={image.id} className="w-[100px] relative aspect-square">
             <Image
-              className="cursor-pointer"
+              className="cursor-pointer  object-cover"
               onClick={() => setCurrentIndex(index)}
               src={image.url}
               alt="image"
-              width={1000}
-              height={10}
+              fill
             />
           </div>
         ))}

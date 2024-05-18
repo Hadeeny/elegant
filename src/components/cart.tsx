@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Sheet,
@@ -18,6 +18,7 @@ import CartItem from "./cart-item";
 import { useCart } from "@/hooks/use-cart";
 import { Divider } from "@nextui-org/react";
 import { formatPrice } from "@/lib/utils";
+import Link from "next/link";
 
 const Cart = () => {
   const { items } = useCart();
@@ -60,13 +61,14 @@ const Cart = () => {
         </div>
         <SheetFooter className="">
           <SheetClose asChild>
-            <Button
-              disabled={items.length === 0}
-              className="w-full"
-              type="submit"
+            <Link
+              href={"/cart"}
+              className={buttonVariants({
+                className: "w-full",
+              })}
             >
               Checkout
-            </Button>
+            </Link>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

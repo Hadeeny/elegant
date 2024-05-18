@@ -32,14 +32,15 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   return (
     <div className="flex gap-x-2">
       {/* image */}
-      <Image
-        alt="cart item"
-        src={item.images[0].url}
-        width={80}
-        height={80}
-        objectFit="cover"
-        className="aspect-square"
-      />
+      <div className="relative w-[80px] aspect-square">
+        <Image
+          alt="cart item"
+          src={item.images[0].url}
+          fill
+          objectFit="cover"
+          className="aspect-square"
+        />
+      </div>
       <div className="flex-1">
         <p className="font-semibold">{item.name}</p>
         <p className="text-sm">Color: {item.color.name}</p>

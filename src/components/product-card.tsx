@@ -30,15 +30,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
           <CardBody className="overflow-visible py-2">
             <div className="w-full flex justify-center items-center">
-              <div className="w-[220px] h-[200px] flex justify-self-center">
+              <div className="w-[220px] h-[200px] relative flex justify-self-center">
                 <Image
-                  objectFit="cover"
-                  width={1000}
-                  height={1000}
-                  // fill
-                  // style={{ objectFit: "cover" }}
+                  fill
+                  style={{ objectFit: "cover" }}
                   alt=""
-                  className="w-full h-full"
+                  className="aspect-square"
                   src={product.images[0].url}
                 />
               </div>

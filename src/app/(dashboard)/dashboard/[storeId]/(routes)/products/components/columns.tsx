@@ -25,13 +25,11 @@ export const columns: ColumnDef<ProductColumn>[] = [
     accessorKey: "image",
     header: "",
     cell: ({ row }) => (
-      <div className="size-24">
+      <div className="w-[50px] aspect-square relative">
         <Image
           objectFit="cover"
-          width={96}
-          height={96}
-          // fill
-          // style={{ objectFit: "cover" }}
+          fill
+          style={{ objectFit: "cover" }}
           alt=""
           className="w-full h-full"
           src={row.original.image}
