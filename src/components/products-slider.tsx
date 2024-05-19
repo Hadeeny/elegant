@@ -25,6 +25,8 @@ export const ProductSlider: React.FC<ProductProps> = async ({
     take: 10,
     include: {
       images: true,
+      size: true,
+      color: true,
     },
   });
   return (

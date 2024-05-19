@@ -84,8 +84,6 @@ export const ImagesSlider = ({
     };
   }, [handleNext, handlePrevious, autoplay]);
 
-  useEffect(() => {}, []);
-
   const slideVariants = {
     initial: {
       opacity: 0,

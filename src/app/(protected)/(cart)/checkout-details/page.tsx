@@ -1,5 +1,6 @@
 import { CheckoutForm } from "@/components/checkout-form";
 import { CheckoutProcess } from "@/components/checkout-process";
+import OrderSummary from "@/components/order-summary";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import React from "react";
@@ -17,7 +18,9 @@ const CheckOutDetatilsPage = () => {
             <CardHeader>
               <CardTitle>Order Summary</CardTitle>
             </CardHeader>
-            <CardContent>Forms go in here</CardContent>
+            <CardContent>
+              <OrderSummary />
+            </CardContent>
           </Card>
         </div>
       </div>

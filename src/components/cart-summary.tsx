@@ -126,7 +126,7 @@ const CartSummary = () => {
         <CartOptions />
         <div className="flex my-4 items-center justify-between">
           <p>Subtotal</p>
-          <p>Subtotal</p>
+          <p>{formatPrice(Number(totalPrice))}</p>
         </div>
         <Divider />
         <div className="flex my-4 items-center justify-between">

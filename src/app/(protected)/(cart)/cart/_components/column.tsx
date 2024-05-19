@@ -53,16 +53,18 @@ export const columns: ColumnDef<CartColumn>[] = [
       },
     }) => (
       <div className="flex items-center gap-x-4">
-        <div className="relative w-[60px] aspect-square">
+        <div className="relative w-[80px] aspect-square">
           <Image
             fill
             alt={name}
-            className="object-cover aspect-square"
+            className="object-cover size-full"
             src={images[0].url}
           />
         </div>
-        <div>
-          <p>{name}</p>
+        <div className="w-full">
+          <div className="w-full  overflow-hidden">
+            <p className="text-nowrap">{name}</p>
+          </div>
           <p>{color.name}</p>
           <div>Remove</div>
         </div>

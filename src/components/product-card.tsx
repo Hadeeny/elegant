@@ -2,15 +2,18 @@ import Image from "next/image";
 import { Icons } from "./Icons";
 import { Button } from "./ui/button";
 import { formatPrice, getDiscount } from "@/lib/utils";
-import { Image as PrismaImage, Product } from "@prisma/client";
+import { Color, Image as PrismaImage, Product, Size } from "@prisma/client";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
+import { AddToCartClient } from "./add-to-cart";
 // import { Product } from "@/lib/types";
 
 interface ProductCardProps {
   product: Product & {
     images: PrismaImage[];
+    size: Size;
+    color: Color;
   };
 }
 
@@ -29,7 +32,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </button>
           </div>
           <CardBody className="overflow-visible py-2">
-            <div className="w-full flex justify-center items-center">
+            <Link
+              href={`/${product.id}`}
+              className="w-full flex justify-center items-center"
+            >
               <div className="w-[220px] h-[200px] relative flex justify-self-center">
                 <Image
                   fill
@@ -39,12 +45,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   src={product.images[0].url}
                 />
               </div>
-            </div>
+            </Link>
           </CardBody>
           <CardFooter className="pb-0 pt-2 px-4 flex-col items-start">
-            <Button className="bg-black text-white w-full hover:bg-black/50">
-              Add to cart
-            </Button>
+            <AddToCartClient item={product} />
           </CardFooter>
         </Card>
       </div>

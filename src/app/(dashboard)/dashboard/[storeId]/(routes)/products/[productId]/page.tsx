@@ -37,7 +37,7 @@ const ProductPage = async ({
   });
   return (
     <div className="flex-col w-full">
-      <div className="flex-1 space-y-4 p-2 sm:p-8 pt-6">
+      <div className="flex-1 space-y-4 p-2 sm:p-8">
         <Suspense fallback={<p>loading</p>}>
           <ProductForm
             userId={userId}
