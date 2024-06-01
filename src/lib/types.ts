@@ -24,6 +24,13 @@ export type SiteConfig = {
   };
 };
 
-export interface CartItem {
-  item: PrismaProduct & { size: Size; images: Image[]; color: Color };
+export interface CartItem extends PrismaProduct {
+  size: Size;
+  images: Image[];
+  color: Color;
+  // quantity: number;
 }
+
+// export interface CartItem {
+//   item: PrismaProduct & { size: Size; images: Image[]; color: Color };
+// }

@@ -13,6 +13,7 @@ const DashboardPage = async ({ params }: { params: { storeId: string } }) => {
   });
 
   const session = await auth();
+
   return (
     <>
       <Dashboard />

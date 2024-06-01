@@ -96,7 +96,10 @@ async function Home() {
         </div>
       </MaxWidthWrapper>
       <Suspense fallback={<p>Loading products</p>}>
-        <ProductSlider title="New Arivals" />
+        <ProductSlider
+          title="New Arivals"
+          where={{ storeId: "clw75gdfg0004k1rff9ezy4dh" }}
+        />
       </Suspense>
       <br />
     </>

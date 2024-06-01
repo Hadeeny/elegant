@@ -39,8 +39,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Order, OrderItem } from "@prisma/client";
+import { db } from "@/lib/db";
 
-export function Dashboard() {
+// interface myOrder extends Order {
+//   orderItems: OrderItem[];
+// }
+
+export const Dashboard = async () => {
+  const order = await db.order.findMany({
+    include: {
+      orderItems: true,
+    },
+  });
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -322,4 +333,4 @@ export function Dashboard() {
       </main>
     </div>
   );
-}
+};

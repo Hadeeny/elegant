@@ -22,7 +22,6 @@ import Link from "next/link";
 
 const Cart = () => {
   const { items } = useCart();
-  console.log(items);
 
   const totalPrice: number = items.reduce(
     (total, item) => total + Number(item.price) * item.quantity,

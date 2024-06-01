@@ -5,20 +5,8 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface CartType {
-  items: (Product & {
-    size: Size;
-    images: Image[];
-    color: Color;
-    quantity: number;
-  })[];
-  addItem: (
-    data: Product & {
-      size: Size;
-      images: Image[];
-      color: Color;
-      quantity: number;
-    }
-  ) => void;
+  items: CartItem[];
+  addItem: (data: CartItem) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
   increment: (id: string) => void;
@@ -29,14 +17,7 @@ export const useCart = create(
   persist<CartType>(
     (set, get) => ({
       items: [],
-      addItem: (
-        data: Product & {
-          size: Size;
-          images: Image[];
-          color: Color;
-          quantity: number;
-        }
-      ) => {
+      addItem: (data: CartItem) => {
         const currentItems = get().items;
         const existingItem = currentItems.find((item) => item?.id === data.id);
         if (existingItem) {

@@ -7,15 +7,33 @@ import {
   CheckoutForm as CheckoutFormType,
 } from "@/lib/validators/account-credentials-validators";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useCart } from "@/hooks/use-cart";
+import { createOrder } from "@/action/create-order";
+import { useTransition } from "react";
 
 export const CheckoutForm = () => {
+  const [isPending, startTransition] = useTransition();
   const form = useForm<TCheckoutForm>({
     resolver: zodResolver(CheckoutFormType),
   });
-  const onSubmit = () => {};
+
+  const { items: orderItems } = useCart();
+  const onSubmit = (data: TCheckoutForm) => {
+    startTransition(() => {
+      createOrder(data, orderItems).then((data) => console.log(data.order));
+    });
+  };
+
   return (
     <Form {...form}>
       <form className="space-y-6 mb-8" onSubmit={form.handleSubmit(onSubmit)}>
@@ -52,12 +70,12 @@ export const CheckoutForm = () => {
             </div>
             <FormField
               control={form.control}
-              name="phoneNumber"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Phone Number" {...field} />
+                    <Input placeholder="Enter Email" {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -89,6 +107,18 @@ export const CheckoutForm = () => {
                   <FormLabel>Country</FormLabel>
                   <FormControl>
                     <Input placeholder="Country" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input placeholder="City" {...field} />
                   </FormControl>
                 </FormItem>
               )}
