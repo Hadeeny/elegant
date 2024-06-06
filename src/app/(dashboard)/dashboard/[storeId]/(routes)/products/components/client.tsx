@@ -73,7 +73,7 @@ export const ProductClient = async ({
       <Divider />
       {/* <DataTable searchKey="label" columns={columns} data={data} /> */}
       {/* <Divider /> */}
-      <DataTable columns={columns} data={data} searchKey="name" />
+      <DataTable columns={columns} showSearch data={data} searchKey="name" />
       <Heading title="API" description="API Calls for Products" />
       <ApiList entityName="products" entityIdName="productId" />
     </>

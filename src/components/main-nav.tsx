@@ -49,6 +49,11 @@ export const MainNav = ({
       label: "Settings",
       active: pathName === `/dashboard/${params.storeId}/settings`,
     },
+    {
+      href: `/dashboard/${params.storeId}/orders`,
+      label: "Orders",
+      active: pathName === `/dashboard/${params.storeId}/orders`,
+    },
   ];
   return (
     <>

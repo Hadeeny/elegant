@@ -29,8 +29,41 @@ import {
 //     PaginationItem,
 //   } from "@/components/ui/pagination"
 import { Divider as Separator } from "@nextui-org/react";
+import { db } from "@/lib/db";
+import { formatPrice } from "@/lib/utils";
 
-export default function OrderDetails() {
+export default async function OrderDetails({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+  };
+}) {
+  const query = searchParams?.query || "";
+  const orderDetail = await db.order.findFirst({
+    where: {
+      id: query,
+    },
+    select: {
+      orderItems: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  });
+  if (!orderDetail) {
+    return (
+      <Card className="overflow-hidden">
+        <CardHeader>
+          <CardTitle className="text-xl">
+            You have not selected any order
+          </CardTitle>
+        </CardHeader>
+        <CardContent>Please select an order to view the details</CardContent>
+      </Card>
+    );
+  }
   return (
     <Card className="overflow-hidden">
       <CardHeader className="flex flex-row items-start bg-muted/50">
@@ -75,18 +108,14 @@ export default function OrderDetails() {
         <div className="grid gap-3">
           <div className="font-semibold">Order Details</div>
           <ul className="grid gap-3">
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                Glimmer Lamps x <span>2</span>
-              </span>
-              <span>$250.00</span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                Aqua Filters x <span>1</span>
-              </span>
-              <span>$49.00</span>
-            </li>
+            {orderDetail.orderItems.map((order) => (
+              <li key={order.id} className="flex items-center justify-between">
+                <span className="text-muted-foreground">
+                  {order.product.name} x <span>{order.quantity}</span>
+                </span>
+                <span>{formatPrice(order.price.toNumber())}</span>
+              </li>
+            ))}
           </ul>
           <Separator className="my-2" />
           <ul className="grid gap-3">
