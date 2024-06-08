@@ -20,8 +20,12 @@ import { Button } from "./ui/button";
 import { useCart } from "@/hooks/use-cart";
 import { createOrder } from "@/action/create-order";
 import { useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const CheckoutForm = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
   const [isPending, startTransition] = useTransition();
   const form = useForm<TCheckoutForm>({
     resolver: zodResolver(CheckoutFormType),
@@ -30,7 +34,11 @@ export const CheckoutForm = () => {
   const { items: orderItems } = useCart();
   const onSubmit = (data: TCheckoutForm) => {
     startTransition(() => {
-      createOrder(data, orderItems).then((data) => console.log(data.order));
+      createOrder(data, orderItems).then((response) => {
+        router.push(
+          `https://checkout.paystack.com/${response.payload.data.access_code}`
+        );
+      });
     });
   };
 
@@ -163,7 +171,7 @@ export const CheckoutForm = () => {
             </div>
           </CardContent>
         </Card>
-        <Button type="submit" className="w-full">
+        <Button disabled={isPending} type="submit" className="w-full">
           Place Order
         </Button>
       </form>
