@@ -21,10 +21,12 @@ import { useCart } from "@/hooks/use-cart";
 import { createOrder } from "@/action/create-order";
 import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useOrigin } from "@/hooks/use-origin";
 
 export const CheckoutForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const origin = useOrigin();
   const params = new URLSearchParams(searchParams);
   const [isPending, startTransition] = useTransition();
   const form = useForm<TCheckoutForm>({
@@ -34,7 +36,7 @@ export const CheckoutForm = () => {
   const { items: orderItems } = useCart();
   const onSubmit = (data: TCheckoutForm) => {
     startTransition(() => {
-      createOrder(data, orderItems).then((response) => {
+      createOrder(data, orderItems, origin).then((response) => {
         router.push(
           `https://checkout.paystack.com/${response.payload.data.access_code}`
         );

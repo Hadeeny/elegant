@@ -10,10 +10,13 @@ import {
 import { Color, Image, Product, Size } from "@prisma/client";
 import { CartItem } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
+
 export const createOrder = async (
   values: TCheckoutForm,
-  orderItems: CartItem[]
+  orderItems: CartItem[],
+  origin: string
 ) => {
+  console.log(`your origin is ${origin}`);
   const validatedFields = CheckoutForm.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid Field" };
@@ -51,7 +54,7 @@ export const createOrder = async (
       body: JSON.stringify({
         amount: totalPrice,
         email: ValidData.email,
-        callback_url: "http://localhost:3000/checkout-complete",
+        callback_url: `${origin}/checkout-complete`,
       }),
     }
   );

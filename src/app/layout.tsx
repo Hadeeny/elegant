@@ -9,6 +9,7 @@ import { SessionProvider } from "next-auth/react";
 import { ModalProvider } from "@/providers/modal-provider";
 import { ToastProvider } from "@/providers/toast-providers";
 import { ThemeProvider } from "@/components/theme-provider";
+import QueryProvider from "@/components/query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -83,7 +84,7 @@ export default async function RootLayout({
               {/* <Header /> */}
               <ToastProvider />
               <ModalProvider />
-              {children}
+              <QueryProvider>{children}</QueryProvider>
             </main>
           </ThemeProvider>
         </body>
