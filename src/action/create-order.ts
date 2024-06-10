@@ -16,7 +16,6 @@ export const createOrder = async (
   orderItems: CartItem[],
   origin: string
 ) => {
-  console.log(`your origin is ${origin}`);
   const validatedFields = CheckoutForm.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid Field" };
@@ -48,7 +47,7 @@ export const createOrder = async (
     {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET}`,
+        Authorization: `Bearer sk_test_6ced9f30d8eada470a2c49b8fbb24ea412ed5a9f`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
