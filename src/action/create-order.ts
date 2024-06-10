@@ -47,7 +47,7 @@ export const createOrder = async (
     {
       method: "POST",
       headers: {
-        Authorization: `Bearer sk_test_6ced9f30d8eada470a2c49b8fbb24ea412ed5a9f`,
+        Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

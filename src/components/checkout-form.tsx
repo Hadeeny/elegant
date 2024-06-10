@@ -22,6 +22,8 @@ import { createOrder } from "@/action/create-order";
 import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useOrigin } from "@/hooks/use-origin";
+import { Loader, Loader2 } from "lucide-react";
+import { Spinner } from "@nextui-org/react";
 
 export const CheckoutForm = () => {
   const router = useRouter();
@@ -173,8 +175,15 @@ export const CheckoutForm = () => {
             </div>
           </CardContent>
         </Card>
-        <Button disabled={isPending} type="submit" className="w-full">
-          Place Order
+        <Button
+          disabled={isPending}
+          type="submit"
+          className="w-full items-center"
+        >
+          <div className="flex items-center gap-x-2">
+            {isPending && <Loader2 className="animate-spin size-6" />}
+            <p>Place Orders</p>
+          </div>
         </Button>
       </form>
     </Form>
