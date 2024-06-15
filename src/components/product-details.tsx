@@ -1,11 +1,8 @@
 import { db } from "@/lib/db";
 import { formatPrice } from "@/lib/utils";
 import { Divider } from "@nextui-org/react";
-import Image from "next/image";
-import { Button } from "./ui/button";
 import { ImageShowCase } from "./image-showcase";
 import { AddToCartClient } from "./add-to-cart";
-import { Decimal } from "@prisma/client/runtime/library";
 
 export const ProductDetails: React.FC<{ productId: string }> = async ({
   productId,

@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/header";
 
 interface AuthLayoutProps {
@@ -9,6 +10,7 @@ export default function HomeLayout({ children }: AuthLayoutProps) {
     <div className="min-h-screen">
       <Header />
       {children}
+      <Footer />
     </div>
   );
 }
