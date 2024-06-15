@@ -51,7 +51,7 @@ const Cart = () => {
         </div>
         <div className="flex justify-between items-center">
           <p>Total</p>
-          <p className="font-semibold">$400</p>
+          <p className="font-semibold">{formatPrice(totalPrice)}</p>
         </div>
         <Divider />
         <div className="flex font-semibold justify-between items-center">

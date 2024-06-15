@@ -7,6 +7,7 @@ import { Color, Image as PrismaImage, Product, Size } from "@prisma/client";
 // import { CartItem as CartItemProps } from "@/lib/types";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/utils";
+import Marquee from "react-fast-marquee";
 
 interface CartItemProps {
   item: Product & {
@@ -42,7 +43,11 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         />
       </div>
       <div className="flex-1">
-        <p className="font-semibold">{item.name}</p>
+        <Marquee speed={20} play={false}>
+          <div className="w-[4rem]">
+            <p className="font-semibold text-nowrap">{item.name}</p>
+          </div>
+        </Marquee>
         <p className="text-sm">Color: {item.color.name}</p>
         <div className="flex border-2 border-black rounded-md max-w-min">
           <button

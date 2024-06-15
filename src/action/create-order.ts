@@ -70,7 +70,7 @@ export const createOrder = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount: totalPrice,
+        amount: totalPrice * 100,
         email: ValidData.email,
         callback_url: `${origin}/checkout-complete/${order.id}`,
       }),

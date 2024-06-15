@@ -41,6 +41,7 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-fast-marquee": "^1.6.4",
     "react-hook-form": "^7.50.1",
     "react-hot-toast": "^2.4.1",
     "react-paystack": "^5.0.0",

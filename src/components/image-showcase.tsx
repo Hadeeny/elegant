@@ -13,12 +13,12 @@ export const ImageShowCase: React.FC<{ images: PrismaImage[] }> = ({
       <div className="relative w-full aspect-square">
         <Image
           src={images[currentIndex].url}
-          className="aspect-square object-cover"
+          className="aspect-square rounded-sm object-cover"
           alt=""
           fill
         />
       </div>
-      <div className="grid gap-4 my-4 grid-cols-4">
+      <div className="flex gap-4 my-4 ">
         {images.map((image, index) => (
           <div key={image.id} className="w-[50px] relative aspect-square">
             <Image

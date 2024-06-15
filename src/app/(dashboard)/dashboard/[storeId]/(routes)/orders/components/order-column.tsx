@@ -34,6 +34,11 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "status",
     header: "Status ",
+    cell: ({ row }) => (
+      <div className="">
+        {row.original.status ? <p>Paid</p> : <p>Pending</p>}
+      </div>
+    ),
   },
   {
     accessorKey: "amount",
