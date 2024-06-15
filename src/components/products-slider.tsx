@@ -14,10 +14,12 @@ interface ProductProps {
     storeId?: string;
   };
   title: string;
+  id: string;
 }
 
 export const ProductSlider: React.FC<ProductProps> = async ({
   title,
+  id,
   where = {},
 }) => {
   const products = await db.product.findMany({
@@ -30,7 +32,7 @@ export const ProductSlider: React.FC<ProductProps> = async ({
     },
   });
   return (
-    <div className="my-12 py-4 ">
+    <div id={id} className="my-12 py-4 ">
       <h2 className="font-semibold px-4 sm:px-20 text-xl mb-4 sm:mb-8 sm:text-3xl">
         {title}
       </h2>

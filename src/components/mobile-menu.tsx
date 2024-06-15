@@ -20,6 +20,8 @@ import { Facebook, Instagram, Youtube } from "lucide-react";
 import { Store } from "@prisma/client";
 import { ModeToggle } from "./mode-toggle";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 // interface props {
 //   stores: Store[];
@@ -28,12 +30,12 @@ import { useSession } from "next-auth/react";
 const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
+  const pathname = usePathname();
 
   const menuItems = [
     { name: "Home", link: "/" },
-    { name: "Shop", link: "/" },
-    { name: "Product", link: "/" },
-    { name: "Contact us", link: "/" },
+    { name: "Cart", link: "/cart" },
+    { name: "Products", link: "/#products" },
   ];
 
   return (
@@ -49,26 +51,19 @@ const MobileMenu = () => {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/">
-            Home
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Shop
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Product
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Contact us
-          </Link>
-        </NavbarItem>
+        {menuItems.map((menu) => (
+          <NavbarItem key={menu.link}>
+            <Link
+              color="foreground"
+              href={menu.link}
+              className={`${
+                pathname === menu.link && "font-semibold"
+              } font-normal`}
+            >
+              {menu.name}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
       <NavbarContent justify="end">
         <span className="cursor-pointer hidden sm:flex">

@@ -16,7 +16,9 @@ import {
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { register as signUp } from "@/action/register";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import chair from "../../../../public/images/authchair.png";
 
 const SignUpPage = () => {
   const [isPending, startTransition] = useTransition();
@@ -43,16 +45,28 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center">
+    <div
+      className={cn("flex flex-col md:flex-row justify-center items-center", {
+        "opacity-25": isPending,
+      })}
+    >
+      {isPending && (
+        <Loader2
+          size={40}
+          className="animate-spin absolute items-start justify-center"
+        />
+      )}
       <div className="w-full flex items-center overflow-hidden justify-center md:w-1/2 h-[40vh] md:h-screen bg-[#f3f5f7]">
         <Link href={"/"} className="absolute top-5 font-bold text-2xl">
           Elegant
         </Link>
         <Image
-          src="/images/authchair.png"
+          src={chair}
           width={450}
           height={450}
           alt="chair"
+          placeholder="blur"
+          blurDataURL=""
         />
       </div>
       <div className="w-full md:w-1/2 flex px-8 md:px-20 items-center justify-center h-[60vh] md:h-screen">

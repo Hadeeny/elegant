@@ -42,6 +42,25 @@ export const createOrder = async (
     0
   );
 
+  const order = await db.order.create({
+    data: {
+      address: orderAddress,
+      phone: ValidData.phoneNumber,
+      customerName: `${ValidData.firstName} ${ValidData.lastName}`,
+      email: ValidData.email,
+      storeId: "clw75gdfg0004k1rff9ezy4dh",
+      isPaid: false,
+      orderItems: {
+        create: orderItems.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity, // Assuming you have quantity in your CartItem
+          price: item.price, // Assuming you have price in your CartItem
+          // Add any other necessary fields from OrderItem
+        })),
+      },
+    },
+  });
+
   const response = await fetch(
     "https://api.paystack.co/transaction/initialize",
     {
@@ -53,7 +72,7 @@ export const createOrder = async (
       body: JSON.stringify({
         amount: totalPrice,
         email: ValidData.email,
-        callback_url: `${origin}/checkout-complete`,
+        callback_url: `${origin}/checkout-complete/${order.id}`,
       }),
     }
   );
@@ -66,24 +85,9 @@ export const createOrder = async (
 
   // api.paystack.co/transaction/verify/:reference
 
-  // const order = await db.order.create({
-  //   data: {
-  //     address: orderAddress,
-  //     phone: ValidData.phoneNumber,
-  //     customerName: `${ValidData.firstName} ${ValidData.lastName}`,
-  //     email: ValidData.email,
-  //     storeId: "clw75gdfg0004k1rff9ezy4dh",
-  //     orderItems: {
-  //       create: orderItems.map((item) => ({
-  //         productId: item.id,
-
-  //         quantity: item.quantity, // Assuming you have quantity in your CartItem
-  //         price: item.price, // Assuming you have price in your CartItem
-  //         // Add any other necessary fields from OrderItem
-  //       })),
-  //     },
-  //   },
-  // });
-
-  return { success: "Order created successfully!", payload: data };
+  return {
+    success: "Order created successfully!",
+    payload: data,
+    orderId: order.id,
+  };
 };

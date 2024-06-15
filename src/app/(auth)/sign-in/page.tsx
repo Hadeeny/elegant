@@ -21,8 +21,9 @@ import {
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { login } from "@/action/login";
-import { Eye, EyeOff, Github, GoalIcon } from "lucide-react";
+import { Eye, EyeOff, Github, GoalIcon, Loader2 } from "lucide-react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/all-routes";
+import { cn } from "@/lib/utils";
 
 const SignInPage = () => {
   const [isPending, startTransition] = useTransition();
@@ -54,7 +55,17 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center">
+    <div
+      className={cn("flex flex-col md:flex-row justify-center items-center", {
+        "opacity-25": isPending,
+      })}
+    >
+      {isPending && (
+        <Loader2
+          size={40}
+          className="animate-spin absolute items-start justify-center"
+        />
+      )}
       <div className="w-full flex items-center overflow-hidden justify-center md:w-1/2 h-[40vh] md:h-screen bg-[#f3f5f7]">
         <Link href={"/"} className="absolute top-5 font-bold text-2xl">
           Elegant
@@ -117,7 +128,7 @@ const SignInPage = () => {
             disabled={isPending}
             className="w-full font-semibold space-x-3"
           >
-            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+            {/* {isPending && <Spinner color="white" size="sm" className="mr-4" />} */}
             Sign in
           </Button>
         </form>
@@ -130,7 +141,7 @@ const SignInPage = () => {
             disabled={isPending}
             className="w-full space-x-3"
           >
-            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+            {/* {isPending && <Spinner color="white" size="sm" className="mr-4" />} */}
             <Image width={20} height={20} src={GitHub} alt="github" />
           </Button>
           <Button
@@ -141,7 +152,7 @@ const SignInPage = () => {
             disabled={isPending}
             className="w-full space-x-3"
           >
-            {isPending && <Spinner color="white" size="sm" className="mr-4" />}
+            {/* {isPending && <Spinner color="white" size="sm" className="mr-4" />} */}
             <Image width={20} height={20} src={GoogleSvg} alt="google" />
           </Button>
         </div>

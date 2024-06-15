@@ -1,8 +1,11 @@
+import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params: { reference } }: { params: { reference: string } }
+  {
+    params: { reference, orderId },
+  }: { params: { orderId: string; reference: string } }
 ) {
   const endpoint = `https://api.paystack.co/transaction/verify/${reference}`;
   try {
@@ -14,6 +17,14 @@ export async function GET(
       },
     });
     const data = await result.json();
+    await db.order.update({
+      where: {
+        id: orderId,
+      },
+      data: {
+        isPaid: true,
+      },
+    });
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.log("[PAYSTACK_VERIFY]", error);

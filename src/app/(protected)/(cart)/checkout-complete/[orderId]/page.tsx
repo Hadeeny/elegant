@@ -1,16 +1,16 @@
 import React from "react";
-import { redirect } from "next/navigation";
 import ConfirmOrder from "@/components/confirm-order";
 
 const CheckoutCompletePage = ({
   searchParams: { reference },
+  params: { orderId },
 }: {
   searchParams: { reference: string };
+  params: { orderId: String };
 }) => {
   return (
     <div>
-      <p>Please hold on while we verify your order</p>
-      <ConfirmOrder reference={reference} />
+      <ConfirmOrder orderId={orderId.toString()} reference={reference} />
     </div>
   );
 };

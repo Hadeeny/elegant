@@ -7,9 +7,9 @@ interface AuthLayoutProps {
 
 export default function HomeLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col ">
       <Header />
-      {children}
+      <div className="flex-1">{children}</div>
       <Footer />
     </div>
   );
