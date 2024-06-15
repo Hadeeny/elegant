@@ -5,7 +5,11 @@ import { Decimal } from "@prisma/client/runtime/library";
 import { useCart } from "@/hooks/use-cart";
 import { CartItem } from "@/lib/types";
 
-export const AddToCartClient: React.FC<CartItem> = ({ item }) => {
+type Cart = {
+  item: CartItem;
+};
+
+export const AddToCartClient: React.FC<Cart> = ({ item }) => {
   const cart = useCart();
   const formattedItem = { ...item, quantity: 1 };
   return (
