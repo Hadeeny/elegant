@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import OrderDetails from "./components/order-details";
 import OrdersTable from "./components/orders-table";
+import Spinner from "@/components/ui/spinner";
 
 const OrderPage = ({
   params,
@@ -23,7 +24,7 @@ const OrderPage = ({
         <OrdersTable params={params} />
       </div>
       <div className="col-span-1">
-        <Suspense fallback={<p>loading order details</p>}>
+        <Suspense fallback={<Spinner />}>
           <OrderDetails searchParams={searchParams} />
         </Suspense>
       </div>

@@ -13,6 +13,7 @@ import { Post } from "@/components/post";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { Suspense } from "react";
+import Spinner from "@/components/ui/spinner";
 
 async function Home() {
   return (
@@ -95,7 +96,7 @@ async function Home() {
           </div>
         </div>
       </MaxWidthWrapper>
-      <Suspense fallback={<p>Loading products</p>}>
+      <Suspense fallback={<Spinner />}>
         <ProductSlider
           id="#products"
           title="New Arivals"

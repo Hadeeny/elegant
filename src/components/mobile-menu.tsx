@@ -57,8 +57,8 @@ const MobileMenu = () => {
               color="foreground"
               href={menu.link}
               className={`${
-                pathname === menu.link && "font-semibold"
-              } font-normal`}
+                pathname === menu.link && "underline underline-offset-2"
+              } font-extralight`}
             >
               {menu.name}
             </Link>
@@ -79,8 +79,8 @@ const MobileMenu = () => {
           <ModeToggle />
         </div>
       </NavbarContent>
-      <NavbarMenu className="flex flex-col">
-        <div className="">
+      <NavbarMenu className="flex flex-col flex-1">
+        <div className="flex-1">
           {menuItems.map((item, index) => (
             <NavbarMenuItem
               className="border-b flex items-center py-2 border-black"
@@ -92,19 +92,7 @@ const MobileMenu = () => {
             </NavbarMenuItem>
           ))}
         </div>
-        <div className="gap-y-8">
-          <div>
-            {[1, 2].map((_, i) => (
-              <NavbarMenuItem
-                className="border-b flex items-center py-2 border-black"
-                key={i}
-              >
-                <Link className="w-full" href={"/"} size="lg">
-                  cart
-                </Link>
-              </NavbarMenuItem>
-            ))}
-          </div>
+        <div className="gap-y-8 ">
           <div className="gap-x-2 space-y-2 my-4">
             <NavbarMenuItem>
               {session.data?.user ? (

@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { BillboardColumn } from "./components/columns";
 import { format } from "date-fns";
 import { unstable_noStore as noStore } from "next/cache";
+import Spinner from "@/components/ui/spinner";
 
 const BillboardPage = async ({ params }: { params: { storeId: string } }) => {
   noStore();
@@ -25,7 +26,7 @@ const BillboardPage = async ({ params }: { params: { storeId: string } }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-4 sm:p-8 pt-6">
-        <Suspense fallback={<p>Loading billboard client</p>}>
+        <Suspense fallback={<Spinner />}>
           <BillboardClient data={formattedBillboards} />
         </Suspense>
       </div>

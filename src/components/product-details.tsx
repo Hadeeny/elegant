@@ -3,6 +3,9 @@ import { formatPrice } from "@/lib/utils";
 import { Divider } from "@nextui-org/react";
 import { ImageShowCase } from "./image-showcase";
 import { AddToCartClient } from "./add-to-cart";
+import ProductReviews from "./product-reviews";
+import { Suspense } from "react";
+import Spinner from "./ui/spinner";
 
 export const ProductDetails: React.FC<{ productId: string }> = async ({
   productId,
@@ -52,6 +55,9 @@ export const ProductDetails: React.FC<{ productId: string }> = async ({
           <AddToCartClient item={productDetails} />
         </div>
       </div>
+      <Suspense fallback={<Spinner />}>
+        <ProductReviews productId={productId} />
+      </Suspense>
     </>
   );
 };

@@ -6,6 +6,16 @@ import { Card, CardTitle, CardHeader, CardContent } from "./ui/card";
 import { Loader2 } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/utils";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const ConfirmOrder: React.FC<{ reference: string; orderId: string }> = ({
   reference,
@@ -35,33 +45,49 @@ const ConfirmOrder: React.FC<{ reference: string; orderId: string }> = ({
 
   if (error) return "An error has occurred: " + error.message;
 
+  const date = new Date(data.data.createdAt);
+
+  const formattedDate = date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  console.log(data);
   return (
     <div>
       {data.data.status === "success" ? (
-        <Card>
-          <CardHeader className="text-center">
+        <div className="w-11/12 p-4 sm:w-2/3 mx-auto">
+          <div className="text-center my-2">
             <p className="text-xl font-normal">Thank you!! 🎉</p>
-            <CardTitle>Your order has been recieved</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2">
-              <p>Order code:</p>
+            <h2>Your order has been recieved</h2>
+          </div>
 
-              <p>{orderId}</p>
-            </div>
-            <div className="grid grid-cols-2">
-              <p>Date:</p> <p>{data.data.createdAt}</p>
-            </div>
-            <div className="grid grid-cols-2">
-              <p>Total:</p>
-              <p>{formatPrice(data.data.amount)}</p>
-            </div>
-            <div className="grid grid-cols-2">
-              <p>Payment method:</p>
-              <p>{data.data.channel}</p>
-            </div>
-          </CardContent>
-        </Card>
+          <Table>
+            <TableCaption>
+              Your reciept has been sent to your email{" "}
+              {data.data.customer.email}
+            </TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Order Code</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Total</TableHead>
+                <TableHead className="text-right">Payment Method</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium">{orderId}</TableCell>
+                <TableCell>{formattedDate}</TableCell>
+                <TableCell>{data.data.amount / 100}</TableCell>
+                <TableCell className="text-right uppercase">
+                  {data.data.channel}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       ) : (
         <p>Sorry, we could not verify your order</p>
       )}

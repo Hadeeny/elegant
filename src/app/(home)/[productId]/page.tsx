@@ -9,6 +9,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
+import Spinner from "@/components/ui/spinner";
 
 function ProductBreadcrumb() {
   return (
@@ -39,7 +40,7 @@ const ProductPage = ({
     <MaxWidthWrapper>
       <ProductBreadcrumb />
 
-      <Suspense fallback={<p>Loading product details</p>}>
+      <Suspense fallback={<Spinner />}>
         <ProductDetails productId={productId} />
       </Suspense>
     </MaxWidthWrapper>

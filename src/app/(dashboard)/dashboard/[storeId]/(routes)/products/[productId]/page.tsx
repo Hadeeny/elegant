@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import ProductForm from "./components/product-form";
 import { getCurrentUser } from "@/lib/utils";
 import { unstable_noStore } from "next/cache";
+import Spinner from "@/components/ui/spinner";
 
 const ProductPage = async ({
   params,
@@ -38,7 +39,7 @@ const ProductPage = async ({
   return (
     <div className="flex-col w-full">
       <div className="flex-1 space-y-4 p-2 sm:p-8">
-        <Suspense fallback={<p>loading</p>}>
+        <Suspense fallback={<Spinner />}>
           <ProductForm
             userId={userId}
             initialData={product}

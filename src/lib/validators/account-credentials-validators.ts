@@ -89,3 +89,11 @@ export const postSchema = z.object({
 });
 
 export type TPostValues = z.infer<typeof postSchema>;
+
+export const ReviewSchema = z.object({
+  review: z.string().min(2, {
+    message: "Review must be at least 2 characters.",
+  }),
+});
+
+export type TReviewValue = z.infer<typeof ReviewSchema>;

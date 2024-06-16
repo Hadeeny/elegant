@@ -46,7 +46,7 @@ export const OrdersClient = async ({
     date: format(item.createdAt, "MMMM do, yyy"),
     createdAt: format(item.createdAt, "MMMM do, yyy"),
 
-    amount: formatter.format(
+    amount: formatPrice(
       item.orderItems.reduce(
         (total, item) => total + Number(item.price) * item.quantity,
         0

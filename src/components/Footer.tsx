@@ -41,12 +41,16 @@ const Footer = () => {
         </div>
       </ul>
       <Divider className="my-4" />
-      <div className="flex flex-col sm:flex-row items-center w-full gap-3">
-        <p className="order-4 sm:-order-first">
+      <div className="flex flex-col sm:flex-row items-center w-full gap-x-4 sm:space-y-0 space-y-5">
+        <p className="order-4 text-sm sm:-order-first mt-6 sm:mt-0">
           Copyright © 2024 3legant. All rights reserved
         </p>
-        <p className="text-white">Privacy Policy</p>
-        <p className="text-white flex-1">Terms of Use</p>
+        <Link href={"/"} className="text-white text-sm">
+          Privacy Policy
+        </Link>
+        <Link href={"/"} className="text-white text-sm flex-1">
+          Terms of Use
+        </Link>
         <div className="flex gap-4 items-center">
           <Link href={"www.instagram.com"}>
             <Instagram className="cursor-pointer hover:text-blue-300" />

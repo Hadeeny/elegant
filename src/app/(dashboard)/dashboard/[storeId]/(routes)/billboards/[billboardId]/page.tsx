@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import BillboardForm from "./components/billboard-form";
 import { getCurrentUser } from "@/lib/utils";
 import { unstable_noStore } from "next/cache";
+import Spinner from "@/components/ui/spinner";
 
 const BillboardPage = async ({
   params,
@@ -19,7 +20,7 @@ const BillboardPage = async ({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <Suspense fallback={<p>loading</p>}>
+        <Suspense fallback={<Spinner />}>
           <BillboardForm userId={userId} initialData={billboard} />
         </Suspense>
       </div>
