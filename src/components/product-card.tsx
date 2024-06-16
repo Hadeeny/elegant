@@ -56,7 +56,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <p className="font-semibold">{product?.name}</p>
         <div className="flex gap-x-4">
           <p className="font-semibold">
-            {formatPrice(product!.price.toNumber(), { currency: "USD" })}
+            {formatPrice(product!.price.toNumber())}
           </p>
           <p className="line-through opacity-40">
             {formatPrice(getDiscount(20, product!.price.toNumber()))}
