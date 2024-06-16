@@ -131,6 +131,7 @@ const MobileMenu = () => {
                 <ModeToggle />
               </NavbarMenuItem>
             </div>
+            <div className="bg-transparent h-10 w-full" />
           </div>
         </div>
       </NavbarMenu>

@@ -46,12 +46,16 @@ import { db } from "@/lib/db";
 //   orderItems: OrderItem[];
 // }
 
-export const Dashboard = async () => {
+export const Dashboard: React.FC<{ storeId: string }> = async ({ storeId }) => {
   const order = await db.order.findMany({
+    where: {
+      id: storeId,
+    },
     include: {
       orderItems: true,
     },
   });
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">

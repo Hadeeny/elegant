@@ -16,7 +16,7 @@ const DashboardPage = async ({ params }: { params: { storeId: string } }) => {
 
   return (
     <>
-      <Dashboard />
+      <Dashboard storeId={id} />
     </>
   );
 };
