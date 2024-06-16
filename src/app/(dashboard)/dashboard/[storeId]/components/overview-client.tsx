@@ -41,25 +41,45 @@ import {
 } from "@/components/ui/table";
 import { Order, OrderItem } from "@prisma/client";
 import { db } from "@/lib/db";
+import { formatPrice } from "@/lib/utils";
 
 // interface myOrder extends Order {
 //   orderItems: OrderItem[];
 // }
 
 export const Dashboard: React.FC<{ storeId: string }> = async ({ storeId }) => {
-  const order = await db.order.findMany({
+  const orders = await db.order.findMany({
     where: {
-      id: storeId,
+      storeId,
+      isPaid: true,
     },
     include: {
       orderItems: true,
     },
   });
 
+  const data = orders.map((item) => ({
+    id: item.id,
+    status: item.isPaid,
+    email: item.email,
+    customer: item.customerName,
+    date: item.createdAt,
+    createdAt: item.createdAt,
+    amount: item.orderItems.reduce(
+      (total, item) => total + Number(item.price) * item.quantity,
+      0
+    ),
+  }));
+
+  const totalRevenue = data.reduce(
+    (total, item) => total + Number(item.amount),
+    0
+  );
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           <Card x-chunk="dashboard-01-chunk-0">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -68,26 +88,15 @@ export const Dashboard: React.FC<{ storeId: string }> = async ({ storeId }) => {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">
+                {formatPrice(totalRevenue)}
+              </div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Subscriptions
-              </CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">+2350</div>
-              <p className="text-xs text-muted-foreground">
-                +180.1% from last month
-              </p>
-            </CardContent>
-          </Card>
+
           <Card x-chunk="dashboard-01-chunk-2">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Sales</CardTitle>
@@ -114,7 +123,7 @@ export const Dashboard: React.FC<{ storeId: string }> = async ({ storeId }) => {
           </Card>
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
+          <Card className="xl:col-span-3" x-chunk="dashboard-01-chunk-4">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
                 <CardTitle>Transactions</CardTitle>
@@ -147,111 +156,35 @@ export const Dashboard: React.FC<{ storeId: string }> = async ({ storeId }) => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        liam@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-23
-                    </TableCell>
-                    <TableCell className="text-right">$250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Olivia Smith</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        olivia@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Refund
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Declined
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-24
-                    </TableCell>
-                    <TableCell className="text-right">$150.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Noah Williams</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        noah@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Subscription
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-25
-                    </TableCell>
-                    <TableCell className="text-right">$350.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Emma Brown</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        emma@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-26
-                    </TableCell>
-                    <TableCell className="text-right">$450.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        liam@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-27
-                    </TableCell>
-                    <TableCell className="text-right">$550.00</TableCell>
-                  </TableRow>
+                  {data.map((order) => (
+                    <TableRow key={order.id}>
+                      <TableCell>
+                        <div className="font-medium">{order.customer}</div>
+                        <div className="hidden text-sm text-muted-foreground md:inline">
+                          {order.email}
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden xl:table-column">
+                        Sale
+                      </TableCell>
+                      <TableCell className="hidden xl:table-column">
+                        <Badge className="text-xs" variant="outline">
+                          {order.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
+                        2023-06-23
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {formatPrice(order.amount)}
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-5">
+          {/* <Card x-chunk="dashboard-01-chunk-5">
             <CardHeader>
               <CardTitle>Recent Sales</CardTitle>
             </CardHeader>
@@ -332,7 +265,7 @@ export const Dashboard: React.FC<{ storeId: string }> = async ({ storeId }) => {
                 <div className="ml-auto font-medium">+$39.00</div>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
       </main>
     </div>

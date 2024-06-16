@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <MaxWidthWrapper
       className={
-        "bg-black text-muted-foreground mt-5 items-center flex flex-col justify-center py-8"
+        "bg-black text-muted-foreground items-center flex flex-col justify-center py-8"
       }
     >
       <ul className="flex flex-col sm:flex-row w-full items-center">

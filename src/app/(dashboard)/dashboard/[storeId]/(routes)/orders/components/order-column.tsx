@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import Image from "next/image";
 import CellAction from "./cell-actions";
+import { formatPrice } from "@/lib/utils";
 
 export type OrderColumn = {
   id: string;
@@ -43,6 +44,7 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "amount",
     header: "Amount",
+    cell: ({ row }) => <div className="">{row.original.amount}</div>,
   },
 
   {

@@ -14,6 +14,7 @@ import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { Suspense } from "react";
 import Spinner from "@/components/ui/spinner";
+import Newsletter from "@/components/newsletter";
 
 async function Home() {
   return (
@@ -103,6 +104,7 @@ async function Home() {
           where={{ storeId: "clw75gdfg0004k1rff9ezy4dh" }}
         />
       </Suspense>
+      <Newsletter />
       <br />
     </>
   );
