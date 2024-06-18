@@ -17,23 +17,28 @@ import { Badge } from "@/components/ui/badge";
 import Cart from "./cart";
 import { Button as Btn, buttonVariants } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube } from "lucide-react";
-import { Store } from "@prisma/client";
 import { ModeToggle } from "./mode-toggle";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-// interface props {
-//   stores: Store[];
-// }
+type Store = {
+  name: string | null;
+  id: string | null;
+};
 
-const MobileMenu = () => {
+type StoreProps = {
+  stores: Store[];
+};
+
+const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
   const pathname = usePathname();
 
   const menuItems = [
     { name: "Home", link: "/" },
+    { name: "Shop", link: "/s/" },
     { name: "Cart", link: "/cart" },
     { name: "Products", link: "/#products" },
   ];

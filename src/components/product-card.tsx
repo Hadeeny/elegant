@@ -24,12 +24,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Card className="py-4 relative rounded-none bg-[#f3f5f7]">
           <div className="absolute flex left-3 flex-col gap-2 z-10">
             <Badge className="rounded-md bg-white uppercase">New</Badge>
-            <Badge className="rounded-md bg-[#38CB89] uppercase">-20%</Badge>
+            {/* TODO */}
+            {/* <Badge className="rounded-md bg-[#38CB89] uppercase">-20%</Badge> */}
           </div>
           <div className="absolute z-10 right-3">
-            <button className="p-3 bg-white rounded-full">
+            {/* TODO */}
+            {/* <button className="p-3 bg-white rounded-full">
               <Icons.Favorite />
-            </button>
+            </button> */}
           </div>
           <CardBody className="overflow-visible py-2">
             <Link
@@ -58,9 +60,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className="font-semibold">
             {formatPrice(product!.price.toNumber())}
           </p>
-          <p className="line-through opacity-40">
+          {/* <p className="line-through opacity-40">
             {formatPrice(getDiscount(20, product!.price.toNumber()))}
-          </p>
+          </p> */}
         </div>
       </Link>
     </div>

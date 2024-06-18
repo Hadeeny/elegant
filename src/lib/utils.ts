@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { db } from "./db";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -37,6 +38,22 @@ export const getCurrentUser = async (): Promise<UserProp> => {
   const session = await auth();
   const user = session?.user;
   return { userId: user?.id };
+};
+
+export const getStores = async () => {
+  return await db.store.findMany();
+};
+export const getStore = async (id: string) => {
+  return await db.store.findUnique({
+    include: {
+      billboards: true,
+      categories: true,
+      products: true,
+    },
+    where: {
+      id,
+    },
+  });
 };
 
 export const formatter = new Intl.NumberFormat("en-US", {
