@@ -38,7 +38,8 @@ const ProductPage = ({
 }) => {
   return (
     <MaxWidthWrapper>
-      <ProductBreadcrumb />
+      {/* TODO */}
+      {/* <ProductBreadcrumb /> */}
 
       <Suspense fallback={<Spinner />}>
         <ProductDetails productId={productId} />

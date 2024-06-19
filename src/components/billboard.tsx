@@ -1,6 +1,7 @@
 import React from "react";
 import { Billboard as PrismaBillborad } from "prisma/prisma-client";
 import Image from "next/image";
+import { ProductSlider } from "./products-slider";
 
 type Props = {
   billboards: PrismaBillborad[];
@@ -23,7 +24,12 @@ const Billboard: React.FC<Props> = ({ billboards }) => {
         <div className="absolute top-20 z-[200] w-full flex justify-center inset-x-0">
           <p className="text-4xl text-white font-bold">{billboard.label}</p>
         </div>
-        <Image alt={billboard.label} src={billboard.imageUrl} fill />
+        <Image
+          alt={billboard.label}
+          src={billboard.imageUrl}
+          fill
+          className="object-cover"
+        />
       </div>
     </div>
   );
