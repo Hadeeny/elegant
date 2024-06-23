@@ -19,9 +19,9 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="flex flex-col gap-2">
-      <div className="sm:w-[250px] w-[220px] relative">
-        <Card className="py-4 relative rounded-none bg-[#f3f5f7]">
+    <div className="flex sm:w-[250px] w-[220px] flex-col gap-2">
+      <div className="relative">
+        <Card className="py-4 relative rounded-none">
           <div className="absolute flex left-3 flex-col gap-2 z-10">
             <Badge className="rounded-md bg-white uppercase">New</Badge>
             {/* TODO */}

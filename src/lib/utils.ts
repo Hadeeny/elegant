@@ -48,7 +48,15 @@ export const getStore = async (id: string) => {
     include: {
       billboards: true,
       categories: true,
-      products: true,
+      products: {
+        include: {
+          size: true,
+          category: true,
+          color: true,
+          images: true
+        }
+      },
+
     },
     where: {
       id,

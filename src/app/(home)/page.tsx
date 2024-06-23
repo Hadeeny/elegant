@@ -8,10 +8,11 @@ import { ProductSlider } from "@/components/products-slider";
 import { Suspense } from "react";
 import Spinner from "@/components/ui/spinner";
 import Newsletter from "@/components/newsletter";
+import {Store} from 'prisma/prisma-client'
 
 async function Home() {
   const stores = await getStores();
-  const myStores = stores.map((store) => {
+  const myStores = stores.map((store:Store) => {
     return {
       id: store.id,
       name: store.name,

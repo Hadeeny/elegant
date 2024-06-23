@@ -6,6 +6,7 @@
 
 export const publicRoutes = [
   "/",
+"/s/*",
   "/api/test",
   "/api/stores/dflk320dflk",
   "/api",
