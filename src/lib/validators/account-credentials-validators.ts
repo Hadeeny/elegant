@@ -97,3 +97,11 @@ export const ReviewSchema = z.object({
 });
 
 export type TReviewValue = z.infer<typeof ReviewSchema>;
+
+export const SearchSchema = z.object({
+  query: z.string().min(2, {
+    message: "Search must be at least 2 characters.",
+  }),
+});
+
+export type TSearchValue = z.infer<typeof SearchSchema>;

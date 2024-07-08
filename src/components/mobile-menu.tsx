@@ -21,6 +21,11 @@ import { ModeToggle } from "./mode-toggle";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { SearchSchema, TSearchValue } from "@/lib/validators/account-credentials-validators";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Input } from "./ui/input";
 
 type Store = {
   name: string | null;
@@ -33,6 +38,7 @@ type StoreProps = {
 
 const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [showSearch, setShowSearch] = React.useState(false);
   const session = useSession();
   const pathname = usePathname();
 
@@ -42,6 +48,11 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
     { name: "Cart", link: "/cart" },
     { name: "Products", link: "/#products" },
   ];
+
+
+  const form = useForm<TSearchValue>({
+    resolver: zodResolver(SearchSchema),
+  })
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -71,7 +82,8 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
         ))}
       </NavbarContent>
       <NavbarContent justify="end">
-        <span className="cursor-pointer hidden sm:flex">
+        <span className="cursor-pointer border px-2 rounded-md hidden items-center gap-x-2 sm:flex">
+          <Input className="outline-transparent active:border-transparent active:outline-none border-transparent"/>
           <Icons.search />
         </span>
         <span className="cursor-pointer hidden sm:flex">
