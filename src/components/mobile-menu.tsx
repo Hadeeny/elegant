@@ -21,6 +21,7 @@ import { ModeToggle } from "./mode-toggle";
 import { useSession } from "next-auth/react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import QueryResults from "./query-results";
+import { useDebouncedCallback } from "use-debounce";
 
 type Store = {
   name: string | null;
@@ -46,7 +47,7 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
     { name: "Products", link: "/#products" },
   ];
 
-  function handleSearch(term: string) {
+  const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
       params.set("q", term);
@@ -54,7 +55,7 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
       params.delete("q");
     }
     router.replace(`${pathname}?${params.toString()}`);
-  }
+  }, 300);
 
   return (
     <>
