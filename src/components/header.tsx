@@ -13,14 +13,16 @@ import { getStores } from "@/lib/utils";
 // import {AcmeLogo} from "./AcmeLogo.jsx";
 
 const Header = async () => {
-  const stores = (await getStores()).map(store=>({
+  const stores = (await getStores()).map((store) => ({
     name: store.name,
-    id: store.id
+    id: store.id,
   }));
- 
+
+  // console.log(`Your string ${searchParams?.query}`);
+
   return (
     <>
-      <MobileMenu stores= {stores}/>
+      <MobileMenu stores={stores} />
     </>
   );
 };

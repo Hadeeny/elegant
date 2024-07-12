@@ -8,11 +8,12 @@ import { ProductSlider } from "@/components/products-slider";
 import { Suspense } from "react";
 import Spinner from "@/components/ui/spinner";
 import Newsletter from "@/components/newsletter";
-import {Store} from 'prisma/prisma-client'
+import { Store } from "prisma/prisma-client";
+import { ImagesSlide } from "@/components/image-slider";
 
 async function Home() {
   const stores = await getStores();
-  const myStores = stores.map((store:Store) => {
+  const myStores = stores.map((store: Store) => {
     return {
       id: store.id,
       name: store.name,
@@ -22,7 +23,7 @@ async function Home() {
   return (
     <>
       <MaxWidthWrapper>
-        {/* <ImagesSlide /> */}
+        <ImagesSlide />
 
         <div className="my-4 sm:my-8 flex flex-col sm:flex-row items-center gap-y-4">
           <div className="w-full sm:w-1/2">

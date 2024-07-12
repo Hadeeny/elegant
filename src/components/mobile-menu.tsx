@@ -19,13 +19,8 @@ import { Button as Btn, buttonVariants } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { SearchSchema, TSearchValue } from "@/lib/validators/account-credentials-validators";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Input } from "./ui/input";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import QueryResults from "./query-results";
 
 type Store = {
   name: string | null;
@@ -41,6 +36,8 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
   const [showSearch, setShowSearch] = React.useState(false);
   const session = useSession();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const menuItems = [
     { name: "Home", link: "/" },
@@ -49,110 +46,126 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
     { name: "Products", link: "/#products" },
   ];
 
-
-  const form = useForm<TSearchValue>({
-    resolver: zodResolver(SearchSchema),
-  })
+  function handleSearch(term: string) {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set("q", term);
+    } else {
+      params.delete("q");
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
-          <p className="font-bold text-inherit text-xl">3legant</p>
-        </NavbarBrand>
-      </NavbarContent>
+    <>
+      <Navbar onMenuOpenChange={setIsMenuOpen}>
+        <NavbarContent>
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="sm:hidden"
+          />
+          <NavbarBrand>
+            <p className="font-bold text-inherit text-xl">3legant</p>
+          </NavbarBrand>
+        </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {menuItems.map((menu) => (
-          <NavbarItem key={menu.link}>
-            <Link
-              color="foreground"
-              href={menu.link}
-              className={`${
-                pathname === menu.link && "underline underline-offset-2"
-              } font-extralight`}
-            >
-              {menu.name}
-            </Link>
-          </NavbarItem>
-        ))}
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <span className="cursor-pointer border px-2 rounded-md hidden items-center gap-x-2 sm:flex">
-          <Input className="outline-transparent active:border-transparent active:outline-none border-transparent"/>
-          <Icons.search />
-        </span>
-        <span className="cursor-pointer hidden sm:flex">
-          <Link href="/account">
-            <Icons.user />
-          </Link>
-        </span>
-        <Cart />
-        <div className="hidden sm:block">
-          <ModeToggle />
-        </div>
-      </NavbarContent>
-      <NavbarMenu className="flex flex-col flex-1">
-        <div className="flex-1">
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem
-              className="border-b flex items-center py-2 border-black"
-              key={`${item}-${index}`}
-            >
-              <Link className="w-full" href={item.link} size="lg">
-                {item.name}
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          {menuItems.map((menu) => (
+            <NavbarItem key={menu.link}>
+              <Link
+                color="foreground"
+                href={menu.link}
+                className={`${
+                  pathname === menu.link && "underline underline-offset-2"
+                } font-extralight`}
+              >
+                {menu.name}
               </Link>
-            </NavbarMenuItem>
+            </NavbarItem>
           ))}
-        </div>
-        <div className="gap-y-8 ">
-          <div className="gap-x-2 space-y-2 my-4">
-            <NavbarMenuItem>
-              {session.data?.user ? (
-                <Link
-                  href="/account"
-                  className={buttonVariants({
-                    className: "w-full",
-                    size: "lg",
-                  })}
-                >
-                  Account
-                </Link>
-              ) : (
-                <Link
-                  href="/sign-in"
-                  className={buttonVariants({
-                    className: "w-full",
-                    size: "lg",
-                  })}
-                >
-                  Sign in
-                </Link>
-              )}
-            </NavbarMenuItem>
-            <div className="flex items-center gap-x-4">
-              <NavbarMenuItem>
-                <Instagram size={30} />
-              </NavbarMenuItem>
-              <NavbarMenuItem>
-                <Facebook size={30} />
-              </NavbarMenuItem>
-              <NavbarMenuItem>
-                <Youtube size={30} />
-              </NavbarMenuItem>
-              <NavbarMenuItem>
-                <ModeToggle />
-              </NavbarMenuItem>
-            </div>
-            <div className="bg-transparent h-10 w-full" />
+        </NavbarContent>
+        <NavbarContent justify="end">
+          <span className="cursor-pointer border-2 px-2 rounded-md hidden items-center gap-x-2 sm:flex">
+            <input
+              onChange={(e) => {
+                handleSearch(e.target.value);
+              }}
+              defaultValue={searchParams.get("q")?.toString()}
+              type="search"
+              className="focus:outline-none h-10 dark:bg-transparent"
+            />
+
+            <Icons.search />
+          </span>
+          <span className="cursor-pointer hidden sm:flex">
+            <Link href="/account">
+              <Icons.user />
+            </Link>
+          </span>
+          <Cart />
+          <div className="hidden sm:block">
+            <ModeToggle />
           </div>
-        </div>
-      </NavbarMenu>
-    </Navbar>
+        </NavbarContent>
+        <NavbarMenu className="flex flex-col flex-1">
+          <div className="flex-1">
+            {menuItems.map((item, index) => (
+              <NavbarMenuItem
+                className="border-b flex items-center py-2 border-black"
+                key={`${item}-${index}`}
+              >
+                <Link className="w-full" href={item.link} size="lg">
+                  {item.name}
+                </Link>
+              </NavbarMenuItem>
+            ))}
+          </div>
+          <div className="gap-y-8 ">
+            <div className="gap-x-2 space-y-2 my-4">
+              <NavbarMenuItem>
+                {session.data?.user ? (
+                  <Link
+                    href="/account"
+                    className={buttonVariants({
+                      className: "w-full",
+                      size: "lg",
+                    })}
+                  >
+                    Account
+                  </Link>
+                ) : (
+                  <Link
+                    href="/sign-in"
+                    className={buttonVariants({
+                      className: "w-full",
+                      size: "lg",
+                    })}
+                  >
+                    Sign in
+                  </Link>
+                )}
+              </NavbarMenuItem>
+              <div className="flex items-center gap-x-4">
+                <NavbarMenuItem>
+                  <Instagram size={30} />
+                </NavbarMenuItem>
+                <NavbarMenuItem>
+                  <Facebook size={30} />
+                </NavbarMenuItem>
+                <NavbarMenuItem>
+                  <Youtube size={30} />
+                </NavbarMenuItem>
+                <NavbarMenuItem>
+                  <ModeToggle />
+                </NavbarMenuItem>
+              </div>
+              <div className="bg-transparent h-10 w-full" />
+            </div>
+          </div>
+        </NavbarMenu>
+      </Navbar>
+      <QueryResults />
+    </>
   );
 };
 export default MobileMenu;

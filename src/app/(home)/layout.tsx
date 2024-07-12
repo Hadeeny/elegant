@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/header";
+import QueryResults from "@/components/query-results";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
