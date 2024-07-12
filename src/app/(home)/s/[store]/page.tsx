@@ -26,7 +26,7 @@ const StorePage: React.FC<Props> = async ({ params: { store } }) => {
         {/* <FilterForm/> */}
         <div className="grid grid-cols-1 max-w-fit justify-items-center min-[510px]:grid-cols-2 min-[930px]:grid-cols-3 gap-x-2 gap-y-8">
           {singleStore.products.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </MaxWidthWrapper>
