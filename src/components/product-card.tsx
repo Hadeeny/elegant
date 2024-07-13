@@ -35,7 +35,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
           <CardBody className="overflow-visible py-2">
             <Link
-              href={`/${product.id}`}
+              href={`/p/${product.id}`}
               className="w-full flex justify-center items-center"
             >
               <div className="w-[220px] h-[200px] relative flex justify-self-center">

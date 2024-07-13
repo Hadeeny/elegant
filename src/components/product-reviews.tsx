@@ -3,6 +3,8 @@ import React from "react";
 import ReviewForm from "./review-form";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Ratings } from "./ui/ratings";
+import { auth } from "@/auth";
+import Link from "next/link";
 
 const ProductReviews: React.FC<{ productId: string }> = async ({
   productId,
@@ -18,9 +20,21 @@ const ProductReviews: React.FC<{ productId: string }> = async ({
       createdAt: "desc",
     },
   });
+  const session = await auth();
+  const isLoggedIn = session?.user;
+  console.log(!!isLoggedIn);
   return (
     <div className="my-8">
-      <ReviewForm productId={productId} />
+      {isLoggedIn ? (
+        <ReviewForm productId={productId} />
+      ) : (
+        <p>
+          <Link className="underline font-medium" href={"/sign-in"}>
+            Sign-in
+          </Link>{" "}
+          to post a review
+        </p>
+      )}
       {reviews.length === 0 || !reviews ? (
         <p className="my-4 text-muted-foreground">
           This product has no reviews yet

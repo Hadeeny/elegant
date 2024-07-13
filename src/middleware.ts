@@ -5,6 +5,7 @@ import {
   authRoutes,
   publicRoutes,
   apiAuthPrefix,
+  privateRoute,
 } from "@/all-routes";
 
 const { auth } = NextAuth(authConfig);
@@ -15,7 +16,8 @@ export default auth((req) => {
   const isLoggedIn = req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  // const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  const isPrivateRoute = privateRoute.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
@@ -29,7 +31,7 @@ export default auth((req) => {
     return;
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  if (!isLoggedIn && isPrivateRoute) {
     return Response.redirect(new URL("/sign-in", nextUrl));
   }
 
@@ -38,5 +40,5 @@ export default auth((req) => {
 
 // Optionally, don't invoke Middleware on some paths
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/s/(.*)", "/(api|trpc)(.*),"],
 };

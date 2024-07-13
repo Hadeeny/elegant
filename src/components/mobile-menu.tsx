@@ -34,7 +34,6 @@ type StoreProps = {
 
 const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [showSearch, setShowSearch] = React.useState(false);
   const session = useSession();
   const pathname = usePathname();
   const searchParams = useSearchParams();

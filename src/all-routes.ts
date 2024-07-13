@@ -1,16 +1,35 @@
+"use client";
 /**
  * An array of routes that are accessible to the public
  * These routes do not require authentication
  * @type {string[]}
  */
 
+console.log("check access");
+// window.history.
+
 export const publicRoutes = [
   "/",
-  "/*",
-"/s/*",
+  "/s",
+  "/p/:id",
+  "/p/*",
+  "/p/(.*)",
+  "/p/:path*",
+  "/p/**",
   "/api/test",
   "/api/stores/dflk320dflk",
   "/api",
+  "/cart",
+];
+
+export const privateRoute = [
+  "/s",
+  "/account",
+  "/admin",
+  "/dashboard/*",
+  "/checkout",
+  "/checkout-complete",
+  "/checkout-details",
 ];
 
 /**
