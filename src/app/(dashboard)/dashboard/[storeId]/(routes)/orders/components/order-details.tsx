@@ -50,6 +50,10 @@ export default async function OrderDetails({
           product: true,
         },
       },
+      customerName: true,
+      email: true,
+      phone: true,
+      address: true,
     },
   });
 
@@ -157,9 +161,7 @@ export default async function OrderDetails({
           <div className="grid gap-3">
             <div className="font-semibold">Shipping Information</div>
             <address className="grid gap-0.5 not-italic text-muted-foreground">
-              <span>Liam Johnson</span>
-              <span>1234 Main St.</span>
-              <span>Anytown, CA 12345</span>
+              {orderDetail.address}
             </address>
           </div>
           <div className="grid auto-rows-max gap-3">
@@ -175,23 +177,23 @@ export default async function OrderDetails({
           <dl className="grid gap-3">
             <div className="flex items-center justify-between">
               <dt className="text-muted-foreground">Customer</dt>
-              <dd>Liam Johnson</dd>
+              <dd>{orderDetail.customerName}</dd>
             </div>
             <div className="flex items-center justify-between">
               <dt className="text-muted-foreground">Email</dt>
               <dd>
-                <a href="mailto:">liam@acme.com</a>
+                <a href="mailto:">{orderDetail.email}</a>
               </dd>
             </div>
             <div className="flex items-center justify-between">
               <dt className="text-muted-foreground">Phone</dt>
               <dd>
-                <a href="tel:">+1 234 567 890</a>
+                <a href="tel:">{orderDetail.phone}</a>
               </dd>
             </div>
           </dl>
         </div>
-        <Separator className="my-4" />
+        {/* <Separator className="my-4" />
         <div className="grid gap-3">
           <div className="font-semibold">Payment Information</div>
           <dl className="grid gap-3">
@@ -203,7 +205,7 @@ export default async function OrderDetails({
               <dd>**** **** **** 4532</dd>
             </div>
           </dl>
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
         <div className="text-xs text-muted-foreground">
