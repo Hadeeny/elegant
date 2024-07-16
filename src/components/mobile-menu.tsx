@@ -85,14 +85,15 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
           ))}
         </NavbarContent>
         <NavbarContent justify="end">
-          <span className="cursor-pointer border-2 px-2 rounded-md hidden items-center gap-x-2 sm:flex">
+          <span className="cursor-pointer bg-transparent border-2 border-black dark:border-slate-200 px-2 rounded-md hidden items-center gap-x-2 sm:flex">
             <input
               onChange={(e) => {
                 handleSearch(e.target.value);
               }}
+              placeholder="Search products"
               defaultValue={searchParams.get("q")?.toString()}
               type="search"
-              className="focus:outline-none h-10 dark:bg-transparent"
+              className="focus:outline-none h-10 bg-transparent"
             />
 
             <Icons.search />

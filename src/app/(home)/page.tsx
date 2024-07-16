@@ -2,7 +2,7 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 import Image from "next/image";
 import Link from "next/link";
 import { Icons } from "@/components/Icons";
-import { getStores } from "@/lib/utils";
+import { getCategories, getStores } from "@/lib/utils";
 import { ProductSlider } from "@/components/products-slider";
 
 import { Suspense } from "react";
@@ -13,6 +13,8 @@ import { ImagesSlide } from "@/components/image-slider";
 
 async function Home() {
   const stores = await getStores();
+  const categories = await getCategories();
+
   const myStores = stores.map((store: Store) => {
     return {
       id: store.id,
@@ -101,12 +103,12 @@ async function Home() {
         </div>
       </MaxWidthWrapper>
       <Suspense fallback={<Spinner />}>
-        {myStores.map((store) => (
+        {categories.map((category) => (
           <ProductSlider
-            key={store.id}
+            key={category.id}
             id="#products"
-            title={`${store.name}`}
-            where={{ storeId: store.id }}
+            title={`${category.name}`}
+            where={{ categoryId: category.id }}
           />
         ))}
       </Suspense>

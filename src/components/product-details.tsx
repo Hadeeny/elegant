@@ -33,7 +33,9 @@ export const ProductDetails: React.FC<{ productId: string }> = async ({
         </div>
         <div className="w-full sm:w-[48%] space-y-3 sm:space-y-5">
           <h1 className="text-4xl font-semibold">{productDetails.name}</h1>
-          <p>{productDetails.description}</p>
+          <div className="max-h-[250px] overflow-y-scroll">
+            <p>{productDetails.description}</p>
+          </div>
           <p className="font-semibold text-2xl">
             {formatPrice(Number(productDetails.price))}
           </p>

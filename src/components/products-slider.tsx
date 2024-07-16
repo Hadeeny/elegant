@@ -8,6 +8,13 @@ import { Image as PrismaImage } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import { db } from "@/lib/db";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css/autoplay";
+
+// Import Swiper styles
+import "swiper/css";
+import Slider from "./ui/swiper-slider";
 
 interface ProductProps {
   where?: {
@@ -55,14 +62,18 @@ export const ProductSlider: React.FC<ProductProps> = async ({
           </Link>
         )}
       </div>
-      <div
+      <Slider products={products} />
+    </div>
+  );
+};
+
+{
+  /* <div
         className="grid product-carousel py-4 md:pb-8 sm:px-20 px-4 grid-flow-col scroll-auto gap-4 sm:gap-6 
     overflow-y-auto overflow-x-scroll overscroll-x-contain"
       >
         {products.map((product, i) => (
           <ProductCard product={product} key={i} />
         ))}
-      </div>
-    </div>
-  );
-};
+      </div> */
+}

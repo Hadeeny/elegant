@@ -18,6 +18,9 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  if (!product) {
+    return;
+  }
   return (
     <div className="flex sm:w-[250px] w-[220px] flex-col gap-2">
       <div className="relative">
@@ -57,9 +60,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link href={`/${product.id}`} className="mt-2">
         <p className="font-semibold">{product?.name}</p>
         <div className="flex gap-x-4">
-          <p className="font-semibold">
-            {formatPrice(product!.price.toNumber())}
-          </p>
+          <p className="font-semibold">{formatPrice(Number(product.price))}</p>
           {/* <p className="line-through opacity-40">
             {formatPrice(getDiscount(20, product!.price.toNumber()))}
           </p> */}

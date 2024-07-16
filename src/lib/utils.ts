@@ -43,6 +43,13 @@ export const getCurrentUser = async (): Promise<UserProp> => {
 export const getStores = async () => {
   return await db.store.findMany();
 };
+export const getCategories = async () => {
+  return await db.category.findMany({
+    where: {
+      storeId: "clw75gdfg0004k1rff9ezy4dh",
+    },
+  });
+};
 export const getStore = async (id: string) => {
   return await db.store.findUnique({
     include: {
@@ -53,10 +60,9 @@ export const getStore = async (id: string) => {
           size: true,
           category: true,
           color: true,
-          images: true
-        }
+          images: true,
+        },
       },
-
     },
     where: {
       id,
