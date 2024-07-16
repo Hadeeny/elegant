@@ -106,7 +106,7 @@ export const CheckoutForm = () => {
                 <FormItem>
                   <FormLabel>Street Address</FormLabel>
                   <FormControl>
-                    <Input placeholder="Phone Number" {...field} />
+                    <Input placeholder="Enter Street Address" {...field} />
                   </FormControl>
                 </FormItem>
               )}

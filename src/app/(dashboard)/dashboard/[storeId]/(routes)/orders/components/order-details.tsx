@@ -52,6 +52,7 @@ export default async function OrderDetails({
       },
     },
   });
+
   if (!orderDetail) {
     return (
       <Card className="overflow-hidden">
@@ -121,19 +122,33 @@ export default async function OrderDetails({
           <ul className="grid gap-3">
             <li className="flex items-center justify-between">
               <span className="text-muted-foreground">Subtotal</span>
-              <span>$299.00</span>
+              <span>
+                {formatPrice(
+                  orderDetail.orderItems.reduce(
+                    (total, item) => total + Number(item.price) * item.quantity,
+                    0
+                  )
+                )}
+              </span>
             </li>
             <li className="flex items-center justify-between">
               <span className="text-muted-foreground">Shipping</span>
-              <span>$5.00</span>
+              <span>{formatPrice(0)}</span>
             </li>
             <li className="flex items-center justify-between">
               <span className="text-muted-foreground">Tax</span>
-              <span>$25.00</span>
+              <span>{formatPrice(0)}</span>
             </li>
             <li className="flex items-center justify-between font-semibold">
               <span className="text-muted-foreground">Total</span>
-              <span>$329.00</span>
+              <span>
+                {formatPrice(
+                  orderDetail.orderItems.reduce(
+                    (total, item) => total + Number(item.price) * item.quantity,
+                    0
+                  )
+                )}
+              </span>
             </li>
           </ul>
         </div>

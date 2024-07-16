@@ -99,7 +99,7 @@ const MobileMenu: React.FC<StoreProps> = ({ stores }) => {
           </span>
           <span className="cursor-pointer hidden sm:flex">
             <Link href="/account">
-              <Icons.user />
+              <Icons.user className="stroke-black dark:stroke-white" />
             </Link>
           </span>
           <Cart />

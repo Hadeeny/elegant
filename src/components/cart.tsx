@@ -32,7 +32,7 @@ const Cart = () => {
     <Sheet>
       <SheetTrigger asChild>
         <button className="flex items-center gap-1">
-          <Icons.CartIcon />
+          <Icons.CartIcon className="stroke-black dark:stroke-white" />
           <Badge className="rounded-full size-6 items-center justify-center">
             {items.length}
           </Badge>
