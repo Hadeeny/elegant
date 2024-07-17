@@ -189,7 +189,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         onConfirm={deleteStore}
       />
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
-        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <div className="flex flex-col sm:gap-4 sm:py-4">
           <header
             className="sticky hidden md:flex top-0 z-30 h-14 items-center 
           gap-4 border-b bg-background px-4 
@@ -391,7 +391,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                           <Table className="hidden sm:block">
                             <TableHeader>
                               <TableRow>
-                                <TableHead className="">SKU</TableHead>
+                                {/* <TableHead className="">SKU</TableHead> */}
                                 <TableHead className="">Color</TableHead>
                                 <TableHead>Price</TableHead>
                                 <TableHead>Size</TableHead>
@@ -399,9 +399,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
                             </TableHeader>
                             <TableBody>
                               <TableRow>
-                                <TableCell className="font-semibold">
+                                {/* <TableCell className="font-semibold">
                                   GGPC-001
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
                                   <FormField
                                     control={form.control}
@@ -484,12 +484,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
                             </TableBody>
                           </Table>
                         </CardContent>
-                        <CardFooter className="justify-center border-t p-4">
+                        {/* <CardFooter className="justify-center border-t p-4">
                           <Button size="sm" variant="ghost" className="gap-1">
                             <PlusCircle className="h-3.5 w-3.5" />
                             Add Variant
                           </Button>
-                        </CardFooter>
+                        </CardFooter> */}
                       </Card>
                       <Card x-chunk="dashboard-07-chunk-2">
                         <CardHeader>
