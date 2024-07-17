@@ -27,13 +27,13 @@ async function Home() {
       <MaxWidthWrapper>
         <ImagesSlide />
 
-        <div className="my-4 sm:my-8 flex flex-col sm:flex-row items-center gap-y-4">
-          <div className="w-full sm:w-1/2">
-            <h2 className="font-semibold text-3xl sm:text-6xl">
+        <div className="my-4 sm:my-8 flex flex-col min-[800px]:flex-row items-start gap-y-4">
+          <div className="w-full min-[800px]:w-1/2">
+            <h2 className="font-semibold text-3xl min-[800px]:text-6xl">
               Simply unique / <br /> Simply better
             </h2>
           </div>
-          <div className="w-full sm:w-1/2">
+          <div className="w-full min-[800px]:w-1/2">
             <p className="text-lg">
               <span className="font-semibold">3legant</span> is a gift &
               decorations store based in HCMC, Vietnam. Est since 2019.

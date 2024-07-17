@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.product-slider-custom{
+  padding: 0 60px;
+  @media (min-width: 800px) {
+    padding: 0 16px;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
