@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { getUserByEmail } from "@/data/users";
+import { revalidatePath } from "next/cache";
 
 export async function GET(
   req: Request,
@@ -124,7 +125,7 @@ export async function PATCH(
         },
       },
     });
-
+    revalidatePath("/");
     return NextResponse.json(product);
   } catch (error) {
     console.log("[PRODUCT_PATCH]", error);
