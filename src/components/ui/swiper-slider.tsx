@@ -25,7 +25,7 @@ const Slider = ({ products }: { products: ExtendedProduct[] }) => {
       spaceBetween={20}
     >
       {products.map((product, i) => (
-        <SwiperSlide style={{ width: "auto" }} className="">
+        <SwiperSlide key={i} style={{ width: "auto" }} className="">
           <ProductCard product={product} key={product.id} />
         </SwiperSlide>
       ))}
