@@ -40,6 +40,11 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "name",
     header: "Name ",
+    cell: ({ row }) => (
+      <div className="max-w-[100px] max-h-[20px] overflow-hidden">
+        <p>{row.original.name}</p>
+      </div>
+    ),
   },
 
   {
